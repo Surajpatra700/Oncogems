@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "168043867264",
+    "project_id": "achiever-541d2",
+    "storage_bucket": "achiever-541d2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:168043867264:android:6b115c129620575c2eca65",
+        "android_client_info": {
+          "package_name": "com.example.achiever"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "168043867264-6gt0u9ohq0kl2u30i9j1fit5iq1ravgh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0VQGfz5-YC1frWEVhIsqEw6lOLpquBxM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "168043867264-6gt0u9ohq0kl2u30i9j1fit5iq1ravgh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
