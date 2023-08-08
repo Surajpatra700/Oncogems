@@ -43,17 +43,18 @@ class _HomeScreenState extends State<HomeScreen> {
         Stack(
           children: [
             Padding(
-              padding: EdgeInsets.only(right: 8.w,top: 8.h),
+              padding: EdgeInsets.only(right: 8.w, top: 8.h),
               child: InkWell(
-                onTap: (){
-
-                },
+                onTap: () {},
                 child: CircleAvatar(
                   radius: 23,
                   backgroundColor: Colors.white,
                   child: Container(
-                    margin: EdgeInsets.all(3.2),
-                    child: Image.network("https://cdn-icons-png.flaticon.com/512/490/490091.png",fit: BoxFit.contain,)),
+                      margin: EdgeInsets.all(3.2),
+                      child: Image.network(
+                        "https://cdn-icons-png.flaticon.com/512/490/490091.png",
+                        fit: BoxFit.contain,
+                      )),
                 ),
               ),
             ),
@@ -64,7 +65,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 radius: 10,
                 backgroundColor: Colors.grey.shade400,
                 child: Center(
-                  child: Text("3",style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600, color: Color.fromARGB(255, 6, 104, 10)),),
+                  child: Text(
+                    "3",
+                    style: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w600,
+                        color: Color.fromARGB(255, 6, 104, 10)),
+                  ),
                 ),
               ),
             ),
