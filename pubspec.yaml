@@ -42,6 +42,7 @@ dependencies:
   rive: ^0.9.1
   firebase_auth: ^4.7.2
   get: ^4.6.5
+  dots_indicator: ^3.0.0
 
 dev_dependencies:
   flutter_test:
