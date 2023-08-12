@@ -19,6 +19,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white54,
@@ -43,7 +44,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                       image: NetworkImage(
-                          "https://img.freepik.com/premium-vector/mobile-otp-secure-verification-method-onetime-password-secure-transaction-woman-using-security-otp-one-time-password-verification-mobile-app-smartphone-screen-2step-verification_735449-280.jpg?w=2000"),
+                          "https://www.trickyenough.com/wp-content/uploads/2021/12/Receive-SMS-online.jpeg"),
                       fit: BoxFit.cover),
                 ),
               ),

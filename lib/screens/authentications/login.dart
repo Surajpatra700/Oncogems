@@ -1,5 +1,4 @@
-
-
+import 'package:achiever/screens/authentications/forgetpassword.dart';
 import 'package:achiever/screens/authentications/signupPage.dart';
 import 'package:achiever/screens/homeScreen.dart';
 import 'package:flutter/material.dart';
@@ -96,20 +95,32 @@ class _LoginState extends State<Login> {
               const Padding(
                 padding: EdgeInsets.only(left: 15.0),
                 child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text("Welcome to",style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal,color: Color(0xff50a387)),)),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Welcome to",
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.normal,
+                          color: Color(0xff50a387)),
+                    )),
               ),
               const Padding(
                 padding: EdgeInsets.only(left: 15.0),
                 child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text("Login Screen",style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold,color: Color(0xff50a387)),)),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Login Screen",
+                      style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff50a387)),
+                    )),
               ),
-              if(_teddyArtBoard != null)
+              if (_teddyArtBoard != null)
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: 250.h,
-                  child: Rive(artboard: _teddyArtBoard!,fit: BoxFit.cover),
+                  child: Rive(artboard: _teddyArtBoard!, fit: BoxFit.cover),
                 ),
               Form(
                   key: _formKey,
@@ -172,8 +183,21 @@ class _LoginState extends State<Login> {
                       ),
                     ],
                   )),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  TextButton(
+                      onPressed: () {
+                        Get.to(Forgetpassword());
+                      },
+                      child: Text(
+                        "Forget password?",
+                        style: TextStyle(fontWeight: FontWeight.w400),
+                      ))
+                ],
+              ),
               Padding(
-                padding: EdgeInsets.only(top: 20.0.h),
+                padding: EdgeInsets.only(top: 15.0.h),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(25.r),
                   child: ElevatedButton(
@@ -188,20 +212,21 @@ class _LoginState extends State<Login> {
                                 passwordController.text != null)) {
                           setState(() {});
                           isChecking?.change(false);
-                            isHandsUp?.change(false);
+                          isHandsUp?.change(false);
                           auth
-                                .signInWithEmailAndPassword(
-                                    email: emailController.text,
-                                    password: passwordController.text)
+                              .signInWithEmailAndPassword(
+                                  email: emailController.text,
+                                  password: passwordController.text)
                               .then((_) {
-                              successTrigger?.fire();
-                              Get.snackbar("Achiever", "Welcome to Achiever",
-                                  colorText: const Color(0xff50a387));
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: ((context) => const HomeScreen())));
-                            }).onError((error, stackTrace) {
+                            successTrigger?.fire();
+                            Get.snackbar("Achiever", "Welcome to Achiever",
+                                colorText: const Color(0xff50a387));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: ((context) =>
+                                        const HomeScreen())));
+                          }).onError((error, stackTrace) {
                             //print(error.toString());
                             Get.snackbar("Achiever", error.toString(),
                                 colorText: Colors.red);
@@ -221,10 +246,8 @@ class _LoginState extends State<Login> {
                   ),
                   TextButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SignUp()));
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => SignUp()));
                       },
                       child: const Text("Signup"))
                 ],

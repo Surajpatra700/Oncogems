@@ -17,6 +17,7 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   bool check = false;
+  bool check1 = false;
   bool hide = true;
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
@@ -260,7 +261,7 @@ class _SignUpState extends State<SignUp> {
                 child: ElevatedButton(
                     onPressed: () async {
                       setState(() {
-                        check = true;
+                        check1 = true;
                       });
                       await Get.to(VerifyNumber());
                     },
