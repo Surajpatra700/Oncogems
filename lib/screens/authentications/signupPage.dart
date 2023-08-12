@@ -1,4 +1,5 @@
 import 'package:achiever/screens/authentications/login.dart';
+import 'package:achiever/screens/authentications/phone_auth.dart';
 import 'package:achiever/screens/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -89,20 +90,32 @@ class _SignUpState extends State<SignUp> {
               const Padding(
                 padding: EdgeInsets.only(left: 15.0),
                 child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text("Welcome to",style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal,color: Color(0xff50a387)),)),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Welcome to",
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.normal,
+                          color: Color(0xff50a387)),
+                    )),
               ),
               const Padding(
                 padding: EdgeInsets.only(left: 15.0),
                 child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text("Achiever",style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold,color: Color(0xff50a387)),)),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Achiever",
+                      style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff50a387)),
+                    )),
               ),
-              if(_teddyArtBoard != null)
+              if (_teddyArtBoard != null)
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: 250.h,
-                  child: Rive(artboard: _teddyArtBoard!,fit: BoxFit.cover),
+                  child: Rive(artboard: _teddyArtBoard!, fit: BoxFit.cover),
                 ),
               Form(
                   key: _formKey,
@@ -176,6 +189,9 @@ class _SignUpState extends State<SignUp> {
                           backgroundColor: const Color(0xff50a387),
                           padding: const EdgeInsets.symmetric(horizontal: 55)),
                       onPressed: () {
+                        setState(() {
+                          check = true;
+                        });
                         if (_formKey.currentState!.validate() &&
                             (emailController.text != null &&
                                 passwordController.text != null)) {
@@ -194,15 +210,22 @@ class _SignUpState extends State<SignUp> {
                                     email: emailController.text,
                                     password: passwordController.text)
                                 .then((_) {
+                              setState(() {
+                                check = false;
+                              });
                               successTrigger?.fire();
                               Get.snackbar("Achiever", "Succesfully SignedIn",
                                   colorText: const Color(0xff50a387));
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: ((context) => const HomeScreen())));
+                                      builder: ((context) =>
+                                          const HomeScreen())));
                             });
                           }).onError((error, stackTrace) {
+                            setState(() {
+                              check = false;
+                            });
                             //print(error.toString());
                             Get.snackbar("Achiever", error.toString(),
                                 colorText: Colors.red);
@@ -210,7 +233,11 @@ class _SignUpState extends State<SignUp> {
                           });
                         }
                       },
-                      child: const Text("Create account")),
+                      child: check
+                          ? CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                          : Text("Create account")),
                 ),
               ),
               Row(
@@ -222,14 +249,28 @@ class _SignUpState extends State<SignUp> {
                   ),
                   TextButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Login()));
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Login()));
                       },
                       child: const Text("Sign in"))
                 ],
               ),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(25.r),
+                child: ElevatedButton(
+                    onPressed: () async {
+                      setState(() {
+                        check = true;
+                      });
+                      await Get.to(VerifyNumber());
+                    },
+                    style: ElevatedButton.styleFrom(
+                        elevation: 4,
+                        minimumSize: Size(320.w, 48.h),
+                        backgroundColor: const Color(0xff50a387),
+                        padding: EdgeInsets.symmetric(horizontal: 30.h)),
+                    child: check? CircularProgressIndicator(strokeWidth: 3,color: Colors.white,) : Text("SignIn with phone number")),
+              )
             ],
           ),
         ),
