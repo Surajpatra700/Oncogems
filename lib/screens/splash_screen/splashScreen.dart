@@ -11,16 +11,16 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  final splashServices = SplashServices();
-
-  @override
-  void initState() {
-    super.initState();
-    splashServices.action();
-  }
+final splashServices = SplashServices();
+    @override
+    void initState() {
+      super.initState();
+      splashServices.action(context);
+    }
 
   @override
   Widget build(BuildContext context) {
+  
     return Scaffold(
       backgroundColor: Color(0xff50a387),
       body: Center(

@@ -1,3 +1,5 @@
+// ignore_for_file: await_only_futures, prefer_const_constructors
+
 import 'package:achiever/screens/onboarding%20Screens/onboarding_home_screen.dart';
 import 'package:achiever/screens/splash_screen/splashScreen.dart';
 import 'package:firebase_core/firebase_core.dart';

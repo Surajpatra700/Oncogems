@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:achiever/screens/authentications/login.dart';
 import 'package:achiever/screens/authentications/phone_auth.dart';
 import 'package:achiever/screens/homeScreen.dart';
@@ -210,7 +212,9 @@ class _SignUpState extends State<SignUp> {
                                 .signInWithEmailAndPassword(
                                     email: emailController.text,
                                     password: passwordController.text)
-                                .then((_) {
+                                .then((_) async {
+                              
+
                               setState(() {
                                 check = false;
                               });
@@ -270,7 +274,12 @@ class _SignUpState extends State<SignUp> {
                         minimumSize: Size(320.w, 48.h),
                         backgroundColor: const Color(0xff50a387),
                         padding: EdgeInsets.symmetric(horizontal: 30.h)),
-                    child: check? CircularProgressIndicator(strokeWidth: 3,color: Colors.white,) : Text("SignIn with phone number")),
+                    child: check
+                        ? CircularProgressIndicator(
+                            strokeWidth: 3,
+                            color: Colors.white,
+                          )
+                        : Text("SignIn with phone number")),
               )
             ],
           ),
