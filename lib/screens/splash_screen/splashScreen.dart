@@ -24,20 +24,13 @@ final splashServices = SplashServices();
     return Scaffold(
       backgroundColor: Color(0xff50a387),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              "Oncogems",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontFamily: "poppins",
-                  fontSize: 40,
-                  color: Colors.white),
-            )
-          ],
-        ),
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            image: DecorationImage(image: AssetImage("assets/images/oncogems.jpg"),fit: BoxFit.cover)
+          ),
+        )
       ),
     );
   }

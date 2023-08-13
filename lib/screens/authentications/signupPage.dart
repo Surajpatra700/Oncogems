@@ -1,14 +1,16 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, prefer_const_constructors
 
 import 'package:achiever/screens/authentications/login.dart';
 import 'package:achiever/screens/authentications/phone_auth.dart';
 import 'package:achiever/screens/homeScreen.dart';
+import 'package:achiever/services/storage_services.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:rive/rive.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -212,9 +214,9 @@ class _SignUpState extends State<SignUp> {
                                 .signInWithEmailAndPassword(
                                     email: emailController.text,
                                     password: passwordController.text)
-                                .then((_) async {
-                              
-
+                                .then((value) async {
+                              await StorageService()
+                                  .setString("user_id", value.user!.uid);
                               setState(() {
                                 check = false;
                               });
@@ -264,9 +266,9 @@ class _SignUpState extends State<SignUp> {
                 borderRadius: BorderRadius.circular(25.r),
                 child: ElevatedButton(
                     onPressed: () async {
-                      setState(() {
-                        check1 = true;
-                      });
+                      // setState(() {
+                      //   check1 = true;
+                      // });
                       await Get.to(VerifyNumber());
                     },
                     style: ElevatedButton.styleFrom(
