@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'constants/constants.dart';
+
 class UnboardingPage extends GetView<WelcomeController> {
   const UnboardingPage({super.key});
 
@@ -53,32 +55,8 @@ class UnboardingPage extends GetView<WelcomeController> {
                     Container(
                       width: double.infinity,
                       height: double.infinity,
-                      
-                      child: Stack(
-                        alignment: Alignment.bottomCenter,
-                        children: [
-                          OnboardingScreenThree(),
-                          Positioned(
-                              bottom: 90,
-                              child: ElevatedButton(
-                                  onPressed: () {
-                                    Get.to(SignUp());
-                                  },
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all(Color(0xff50a387)),
-                                    foregroundColor:
-                                        MaterialStateProperty.all(Colors.white),
-                                    shape: MaterialStateProperty.all(
-                                        RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    )),
-                                    side: MaterialStateProperty.all(
-                                        const BorderSide(color: Color(0xff50a387))),
-                                  ),
-                                  child: Text("Move to SignUp Screen"))),
-                        ],
-                      ),
+                      child: OnboardingScreenThree(),
+
                     ),
                   ],
                 ),
@@ -88,13 +66,16 @@ class UnboardingPage extends GetView<WelcomeController> {
                     dotsCount: 3,
                     mainAxisAlignment: MainAxisAlignment.center,
                     decorator: DotsDecorator(
-                        size: Size.square(9),
+                      color: Colors.grey.shade400,
+                        size: Size.square(10),
                         activeSize: Size(18.0, 9.0),
+                        activeColor: Colors.black54,
                         activeShape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
+
+                          borderRadius: BorderRadius.circular(5.sp),
                         )),
                   ),
-                )
+                ),
               ],
             )),
       ),
