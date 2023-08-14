@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'constants/constants.dart';
+
 class UnboardingPage extends GetView<WelcomeController> {
   const UnboardingPage({super.key});
 
@@ -53,32 +55,8 @@ class UnboardingPage extends GetView<WelcomeController> {
                     Container(
                       width: double.infinity,
                       height: double.infinity,
-                      
-                      child: Stack(
-                        alignment: Alignment.bottomCenter,
-                        children: [
-                          OnboardingScreenThree(),
-                          Positioned(
-                              bottom: 50.sp,
-                              child: ElevatedButton(
-                                  onPressed: () {
-                                    Get.to(SignUp());
-                                  },
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all(Color(0xff61B688)),
-                                    foregroundColor:
-                                        MaterialStateProperty.all(Colors.white),
-                                    shape: MaterialStateProperty.all(
-                                        RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12.sp),
-                                    )),
-                                    side: MaterialStateProperty.all(
-                                        const BorderSide(color: Color(0xff50a387))),
-                                  ),
-                                  child: Text("Move to SignUp Screen"))),
-                        ],
-                      ),
+                      child: OnboardingScreenThree(),
+
                     ),
                   ],
                 ),
@@ -97,7 +75,7 @@ class UnboardingPage extends GetView<WelcomeController> {
                           borderRadius: BorderRadius.circular(5.sp),
                         )),
                   ),
-                )
+                ),
               ],
             )),
       ),

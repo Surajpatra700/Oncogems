@@ -99,7 +99,12 @@ class _OnboardingScreenOneState extends State<OnboardingScreenOne> {
                     padding: EdgeInsets.only(right: appPadding),
                     child: FloatingActionButton(
                       onPressed: () {
-                        Get.to(OnboardingScreenTwo());
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => OnboardingScreenTwo(),
+                          ),
+                        );
                       },
                       backgroundColor: white,
                       child: Icon(

@@ -114,7 +114,37 @@ class _OnboardingScreenThreeState extends State<OnboardingScreenThree> {
                   )*/
                 ],
               ),
-            )
+            ),
+            Container(
+              width: double.infinity,
+              height: double.infinity,
+
+              child: Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  //OnboardingScreenThree(),
+                  Positioned(
+                      bottom: 50.sp,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            Get.to(SignUp());
+                          },
+                          style: ButtonStyle(
+                            backgroundColor:
+                            MaterialStateProperty.all(Colors.white),
+                            foregroundColor:
+                            MaterialStateProperty.all(Color(0xff61B688)),
+                            shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12.sp),
+                                )),
+                            side: MaterialStateProperty.all(
+                                const BorderSide(color: Color(0xff50a387))),
+                          ),
+                          child: Text("Move to SignUp Screen"))),
+                ],
+              ),
+            ),
           ],
         ),
       ),
