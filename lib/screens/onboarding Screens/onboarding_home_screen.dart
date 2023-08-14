@@ -59,19 +59,19 @@ class UnboardingPage extends GetView<WelcomeController> {
                         children: [
                           OnboardingScreenThree(),
                           Positioned(
-                              bottom: 90,
+                              bottom: 50.sp,
                               child: ElevatedButton(
                                   onPressed: () {
                                     Get.to(SignUp());
                                   },
                                   style: ButtonStyle(
                                     backgroundColor:
-                                        MaterialStateProperty.all(Color(0xff50a387)),
+                                        MaterialStateProperty.all(Color(0xff61B688)),
                                     foregroundColor:
                                         MaterialStateProperty.all(Colors.white),
                                     shape: MaterialStateProperty.all(
                                         RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(12.sp),
                                     )),
                                     side: MaterialStateProperty.all(
                                         const BorderSide(color: Color(0xff50a387))),
@@ -88,10 +88,13 @@ class UnboardingPage extends GetView<WelcomeController> {
                     dotsCount: 3,
                     mainAxisAlignment: MainAxisAlignment.center,
                     decorator: DotsDecorator(
-                        size: Size.square(9),
+                      color: Colors.grey.shade400,
+                        size: Size.square(10),
                         activeSize: Size(18.0, 9.0),
+                        activeColor: Colors.black54,
                         activeShape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
+
+                          borderRadius: BorderRadius.circular(5.sp),
                         )),
                   ),
                 )
