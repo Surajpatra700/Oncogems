@@ -23,40 +23,13 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Color(0xff61B688).withOpacity(0.7),
       body: SingleChildScrollView(
-        // scrollDirection: Axis.vertical,
+        //scrollDirection: Axis.vertical,
         child: Column(
           children: [
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 0),
               child: Stack(
                 children: [
-                  /*Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10.sp),
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text("Welcome to",
-                              style: TextStyle(
-                                  fontSize: 25.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black54)),
-                        ]),
-                  ),
-                  SizedBox(
-                    height: 50.h,
-                  ),
-                  Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 40.sp, horizontal: 90.sp),
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text("Achiever",
-                                style: TextStyle(
-                                    fontSize: 30.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black54)),
-                          ]))*/
 
                   Padding(
                     padding: EdgeInsets.only(top: 200.0.h),
@@ -65,7 +38,7 @@ class _HomePageState extends State<HomePage> {
                       child: Container(
                           // height: MediaQuery.of(context).size.height / 1.2,
                           width: MediaQuery.of(context).size.width,
-                          padding: EdgeInsets.only(top: 20, left: 15),
+                          padding: EdgeInsets.only(top: 58.h, left: 15.h),
                           decoration: BoxDecoration(
                               color: Colors.grey.shade200,
                               borderRadius: BorderRadius.only(
@@ -136,7 +109,7 @@ class _HomePageState extends State<HomePage> {
                                             Text(
                                               domains[index],
                                               style: TextStyle(
-                                                fontSize: 18,
+                                                fontSize: 18.sp,
                                                 fontWeight: FontWeight.w500,
                                                 color: Colors.black87,
                                               ),
@@ -151,11 +124,17 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 160.0),
+                    padding: EdgeInsets.only(top: 172.0.h),
                     child: Center(
                       child: Container(
-                        height: 70.h,
-                        width: 240.w,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("You 2 task yet to be done!!",style: TextStyle(color: Colors.black87,fontSize: 19.sp,fontWeight: FontWeight.w500)),
+                          ],
+                        ),
+                        height: 75.h,
+                        width: 245.w,
                         decoration: BoxDecoration(
                           color: Colors.orange,
                           borderRadius: BorderRadius.circular(20.r),
@@ -163,6 +142,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
+                  SizedBox(height: 12.h,)
                 ],
               ),
             ),
