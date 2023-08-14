@@ -19,7 +19,7 @@ class _PlantScreenState extends State<PlantScreen> {
   int _treeProgress = 0;
   int _treeMaxProgress = 60;
   Artboard? _riveArtboard;
-  late StateMachineController _controller;
+  // late StateMachineController _controller;
   SMIInput<double>? _progress;
 
   @override
@@ -42,7 +42,7 @@ class _PlantScreenState extends State<PlantScreen> {
 
   @override
   void dispose() {
-    _controller.dispose();
+    // _controller.dispose();
     super.dispose();
   }
 
