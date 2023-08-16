@@ -2,12 +2,27 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:scroll_snap_list/scroll_snap_list.dart';
 
 List<String> domains = [
-  "Goals",
-  "Suggestions",
-  "Pomedaro Timer",
-  "Note Taking"
+  "Scan","form","Report",
+];
+List<String> measurement = [
+  "Pulse rate",
+  "WBC Count",
+  "Blood Pressure",
+  "Sugar"
+];
+List domainimage=[
+  "scan.jpg",
+  "forms.jpg",
+  "report.jpg",
+];
+List image=[
+  "pulserate.png",
+  "wbc.png",
+  "heart.png",
+  "sugar.png",
 ];
 
 class HomePage extends StatefulWidget {
@@ -18,151 +33,278 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xff61B688).withOpacity(0.7),
-      body: SingleChildScrollView(
-        //scrollDirection: Axis.vertical,
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 0),
-              child: Stack(
-                children: [
 
-                  Padding(
-                    padding: EdgeInsets.only(top: 200.0.h),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      child: Container(
-                          // height: MediaQuery.of(context).size.height / 1.2,
-                          width: MediaQuery.of(context).size.width,
-                          padding: EdgeInsets.only(top: 58.h, left: 15.h),
-                          decoration: BoxDecoration(
-                              color: Colors.grey.shade200,
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(30.r),
-                                  topRight: Radius.circular(30.r))),
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Text(
-                                  "Your Daily Task ",
-                                  style: TextStyle(
-                                      fontSize: 23.sp,
-                                      color: Colors.black54,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                SizedBox(
-                                  height: 5.h,
-                                ),
-                                Text(
-                                  "almost done ",
-                                  style: TextStyle(
-                                      fontSize: 20.sp, color: Colors.black54),
-                                ),
-                                SizedBox(
-                                  height: 10.h,
-                                ),
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text("Domains",
-                                      style: TextStyle(
-                                        fontSize: 23.sp,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black,
-                                      )),
-                                ),
-                                // for (int i = 0; i < 4; i++)
-                                GridView.builder(
-                                  gridDelegate:
-                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
-                                  ),
-                                  itemCount: domains.length,
-                                  shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  itemBuilder: (context, index) {
-                                    // for (int i = 0; i < domains.length; i++)
-                                    return InkWell(
-                                      onTap: () {},
-                                      child: Container(
-                                        margin: EdgeInsets.all(10),
-                                        padding:
-                                            EdgeInsets.symmetric(vertical: 15),
-                                        decoration: BoxDecoration(
-                                            color: Colors.amber,
-                                            borderRadius:
-                                                BorderRadius.circular(30),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: Colors.black12,
-                                                  blurRadius: 4,
-                                                  spreadRadius: 2),
-                                            ]),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Text(
-                                              domains[index],
-                                              style: TextStyle(
-                                                fontSize: 18.sp,
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.black87,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ])),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 172.0.h),
-                    child: Center(
-                      child: Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("You 2 task yet to be done!!",style: TextStyle(color: Colors.black87,fontSize: 19.sp,fontWeight: FontWeight.w500)),
-                          ],
-                        ),
-                        height: 75.h,
-                        width: 245.w,
-                        decoration: BoxDecoration(
-                          color: Colors.orange,
-                          borderRadius: BorderRadius.circular(20.r),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 12.h,)
-                ],
-              ),
-            ),
-            // SizedBox(
-            //   height: 20,
-            // ),
-          ],
-        ),
-      ),
-      /*Positioned(
-            top: 180.sp,
-            left: 90.sp,
-            child: Text(
-              "You Have 2 Task left",
-              style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black54,
-                  fontWeight: FontWeight.w600),
+    return Scaffold(
+      backgroundColor: Colors.grey.shade200,
+      body: SingleChildScrollView(
+        padding: EdgeInsets.only(top: 7.5.sp),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+         /* SizedBox(
+            height: 210.h,
+            child: ScrollSnapList(
+              itemBuilder: _buildListItem,
+              itemCount: 4,
+              itemSize: 210.h,
+              onItemFocus: (index) {},
+              dynamicItemSize: true,
+              scrollDirection: Axis.horizontal,
             ),
           ),*/
+          SizedBox(
+              height: 210.h,
+              child: ListView.builder(
+                  itemCount: 4,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                        onTap: () {
+
+                        },
+                      child: Container(
+                        margin: EdgeInsets.all(15.00.sp),
+                        padding: EdgeInsets.symmetric(vertical: 12.sp),
+                        decoration: BoxDecoration(
+                            gradient: LinearGradient(colors:[Colors.green,Colors.white] ,begin: Alignment.bottomLeft,
+                              end: Alignment.topRight,),
+                            borderRadius: BorderRadius.circular(10.r),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black26,
+                                blurRadius: 4.sp,
+                                spreadRadius: 2.r,
+                              ),
+                            ]),
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width / 1.18,
+                          child: Column(
+                            children: [
+                              ListTile(
+                                leading: CircleAvatar(
+                                  radius: 40.sp,
+                                  backgroundImage: AssetImage(
+                                      "assets/images/oncogems"),
+                                ),
+                                title: Text(
+                                  "Dr. Doctor",
+                                  style: TextStyle(
+                                    fontSize:28.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 30.h,
+                              ),
+                              Padding(
+                                padding:
+                                EdgeInsets.symmetric(horizontal: 10.sp),
+                                child: Text(
+                                  maxLines: 2,
+                                  "A very great and professional Doctor.Many many thanks to the doctor",
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  })),
+          Align(
+            alignment: Alignment.centerRight,
+            child: TextButton(
+              onPressed: () {
+                
+              },
+              child: Text("See all",
+                  style: TextStyle(
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFF7165D6))),
+            ),
+          ),
+          SizedBox(
+            height: 0,
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              left: 15.sp,
+            ),
+            child: Text(
+             "Features",
+              style: TextStyle(
+                fontSize: 22.sp,
+                fontWeight: FontWeight.w600,
+                color: Colors.black54,
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 125.h,
+            child: ListView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: domains.length,
+              itemBuilder: (context, index) {
+                return Container(
+                  margin: EdgeInsets.symmetric(vertical: 9.sp, horizontal: 10.sp),
+                  padding: EdgeInsets.symmetric(horizontal: 25.sp),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(colors:[Colors.green,Colors.white] ,begin: Alignment.bottomLeft,
+                      end: Alignment.topRight,),
+                    borderRadius: BorderRadius.circular(10.sp),
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 4.sp,
+                        spreadRadius: 2.sp,
+                        color: Colors.black12,
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        CircleAvatar(
+                          radius: 35.sp,
+                          backgroundImage:
+                          AssetImage("assets/images/${domainimage[index]}"),
+                        ),
+                        Text(
+                          domains[index],
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black54,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+          SizedBox(
+            height: 15.h,
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 16),
+            child: Text("Measurements",
+                style: TextStyle(
+                  fontSize: 22.sp,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black54,
+                )),
+          ),
+          GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+            ),
+            itemCount: measurement.length,
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              return InkWell(
+                onTap: () {
+
+                },
+                child: Container(
+                  margin: EdgeInsets.all(10.sp),
+                  padding: EdgeInsets.symmetric(vertical: 15.sp),
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(colors:[Colors.green,Colors.white] ,begin: Alignment.bottomLeft,
+                        end: Alignment.topRight,),
+                      borderRadius: BorderRadius.circular(30.sp),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 4.sp,
+                            spreadRadius: 4.sp),
+                      ]),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      CircleAvatar(
+                        radius: 40.sp,
+                        backgroundImage:
+                        AssetImage("assets/images/${image[index]}"),
+                      ),
+                      Text(
+                        measurement[index],
+                        style: TextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black54,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ]),
+      ),
     );
   }
 }
+/*Widget _buildListItem(BuildContext context, int index) {
+ return  InkWell(
+    onTap: () {
+
+    },
+    child: Container(
+      margin: EdgeInsets.all(15.00.sp),
+      padding: EdgeInsets.symmetric(vertical: 12.sp),
+      decoration: BoxDecoration(
+          gradient: LinearGradient(colors:[Colors.green,Colors.white] ,begin: Alignment.bottomLeft,
+            end: Alignment.topRight,),
+          borderRadius: BorderRadius.circular(10.r),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black26,
+              blurRadius: 4.sp,
+              spreadRadius: 2.r,
+            ),
+          ]),
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width / 1.18,
+        child: Column(
+          children: [
+            ListTile(
+              leading: CircleAvatar(
+                radius: 40.sp,
+                backgroundImage: AssetImage(
+                    "assets/images/oncogems"),
+              ),
+              title: Text(
+                "Dr. Doctor",
+                style: TextStyle(
+                  fontSize:28.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 30.h,
+            ),
+            Padding(
+              padding:
+              EdgeInsets.symmetric(horizontal: 10.sp),
+              child: Text(
+                maxLines: 2,
+                "A very great and professional Doctor.Many many thanks to the doctor",
+                style: TextStyle(color: Colors.black),
+              ),
+            )
+          ],
+        ),
+      ),
+    ),
+  );
+}*/
