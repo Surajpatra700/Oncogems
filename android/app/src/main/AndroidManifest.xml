@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.achiever">
    <application
-        android:label="achiever"
+        android:label="Oncogems"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
