@@ -215,8 +215,15 @@ class _SignUpState extends State<SignUp> {
                                     email: emailController.text,
                                     password: passwordController.text)
                                 .then((value) async {
+                              
                               await StorageService()
                                   .setString("user_id", value.user!.uid);
+                              await StorageService().setString("user_name",
+                                  value.user!.displayName.toString());
+                              await StorageService().setString("user_photo",
+                                  value.user!.photoURL.toString());
+                              await StorageService().setString(
+                                  "user_email", value.user!.email.toString());
                               setState(() {
                                 check = false;
                               });

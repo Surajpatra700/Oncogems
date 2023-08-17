@@ -23,4 +23,8 @@ class StorageService {
   bool getBool(String key) {
     return _prefs!.getBool(key) ?? false;
   }
+
+  Future<bool> remove(String key) async {
+    return await _prefs!.remove(key); // Helps to remove an entry from shared preference storage
+  }
 }

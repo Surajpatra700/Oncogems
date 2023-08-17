@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
       title: Padding(
         padding: EdgeInsets.only(top: 4.h),
         child: Text(
-          "Achiever",
+          "Oncogems",
           style: TextStyle(
               fontSize: 24.5.sp,
               fontWeight: FontWeight.w700,

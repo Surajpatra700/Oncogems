@@ -45,6 +45,7 @@ dependencies:
   dots_indicator: ^3.0.0
   shared_preferences: ^2.2.0
   scroll_snap_list: ^0.9.1
+  cached_network_image: ^3.2.3
 
 dev_dependencies:
   flutter_test:
@@ -85,10 +86,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: Caveat-VariableFont_wght
+      fonts:
+        - asset: assets/fonts/Caveat-VariableFont_wght.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
