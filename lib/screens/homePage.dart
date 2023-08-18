@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, unnecessary_const
 
+import 'package:achiever/screens/Form%20Page/formpage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:scroll_snap_list/scroll_snap_list.dart';
@@ -159,44 +160,47 @@ class _HomePageState extends State<HomePage> {
               scrollDirection: Axis.horizontal,
               itemCount: domains.length,
               itemBuilder: (context, index) {
-                return Container(
-                  width: 135.w,
-                  margin:
-                      EdgeInsets.symmetric(vertical: 9.sp, horizontal: 10.sp),
-                  padding: EdgeInsets.symmetric(horizontal: 15.sp),
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Colors.green, Colors.white],
-                      begin: Alignment.bottomLeft,
-                      end: Alignment.topRight,
-                    ),
-                    borderRadius: BorderRadius.circular(10.sp),
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 4.sp,
-                        spreadRadius: 2.sp,
-                        color: Colors.black12,
+                return InkWell(
+                  onTap: (){ Navigator.of(context).push(MaterialPageRoute(builder: (context) => formpage()));},
+                  child: Container(
+                    width: 135.w,
+                    margin:
+                        EdgeInsets.symmetric(vertical: 9.sp, horizontal: 10.sp),
+                    padding: EdgeInsets.symmetric(horizontal: 15.sp),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [Colors.green, Colors.white],
+                        begin: Alignment.bottomLeft,
+                        end: Alignment.topRight,
                       ),
-                    ],
-                  ),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        CircleAvatar(
-                          radius: 35.sp,
-                          backgroundImage:
-                              AssetImage("assets/images/${domainimage[index]}"),
-                        ),
-                        Text(
-                          domains[index],
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black54,
-                          ),
+                      borderRadius: BorderRadius.circular(10.sp),
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 4.sp,
+                          spreadRadius: 2.sp,
+                          color: Colors.black12,
                         ),
                       ],
+                    ),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          CircleAvatar(
+                            radius: 35.sp,
+                            backgroundImage:
+                                AssetImage("assets/images/${domainimage[index]}"),
+                          ),
+                          Text(
+                            domains[index],
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black54,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 );
@@ -330,7 +334,7 @@ Widget _buildListItem(BuildContext context, int index) {
     borderRadius: BorderRadius.all(Radius.circular(14)),
     child: SizedBox(
       height: 290,
-      width: 185,
+      width: 220.w,
       child: Card(
         color: Colors.grey.shade200,
         elevation: 12,
