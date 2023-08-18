@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously, prefer_const_constructors
 
+
 import 'package:achiever/screens/authentications/login.dart';
 import 'package:achiever/screens/authentications/phone_auth.dart';
 import 'package:achiever/screens/homeScreen.dart';
@@ -27,6 +28,7 @@ class _SignUpState extends State<SignUp> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final auth = FirebaseAuth.instance;
+  // final db = FirebaseFirestore.instance;
 
   // TEDDY RIVE ANIMATION PARAMETER INITIALISATION
 
@@ -210,12 +212,65 @@ class _SignUpState extends State<SignUp> {
                             isChecking?.change(false);
                             isHandsUp?.change(false);
                             //Utils(check: true).toastMessage("Succesfully SignedUp");
-                            auth
+                            final user = auth
                                 .signInWithEmailAndPassword(
                                     email: emailController.text,
                                     password: passwordController.text)
                                 .then((value) async {
-                              
+                              String displayName =
+                                  value.user!.displayName ?? "Dummy User";
+                              String email = value.user!.email.toString();
+                              String id = value.user!.uid;
+                              String photoUrl = value.user!.photoURL ??
+                                  "assets/images/oncogems.jpg";
+                              UserLoginResponseEntity userProfile =
+                                  UserLoginResponseEntity();
+                              userProfile.photoUrl = photoUrl;
+                              userProfile.displayName = displayName;
+                              userProfile.email = email;
+                              userProfile.accessToken = id;
+                              //userProfile.type = 2;
+                              //asyncPostAllData();
+                              await StorageService().saveProfile(userProfile);
+
+
+
+                              // var userbase = await db
+                              //     .collection("users")
+                              //     .withConverter(
+                              //       fromFirestore: UserData.fromFirestore,
+                              //       toFirestore: (UserData userdata, options) =>
+                              //           userdata.toFirestore(),
+                              //     )
+                              //     .where("id", isEqualTo: id)
+                              //     .get();
+
+                              // if (userbase.docs.isEmpty) {
+                              //   final data = UserData(
+                              //     id: id,
+                              //     name: displayName,
+                              //     email: email,
+                              //     photourl: photoUrl,
+                              //     location: "",
+                              //     fcmtoken: "",
+                              //     addtime: Timestamp.now(),
+                              //   );
+                              //   await db
+                              //       .collection("users")
+                              //       .withConverter(
+                              //         fromFirestore: UserData.fromFirestore,
+                              //         toFirestore:
+                              //             (UserData userdata, options) =>
+                              //                 userdata.toFirestore(),
+                              //       )
+                              //       .add(data);
+                              // } else {}
+                              // //toastInfo(msg: "login succesful");
+                              // print("login succesful");
+                              // Get.offAllNamed(AppRoutes.Application);
+                              //Get.to(ApplicationPage());
+                              // asyncPostAllData();        }
+
                               await StorageService()
                                   .setString("user_id", value.user!.uid);
                               await StorageService().setString("user_name",

@@ -18,6 +18,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final auth = FirebaseAuth.instance;
   final user = FirebaseAuth.instance.currentUser;
   bool themeMode = false;
+  final updateName = TextEditingController();
 
   Widget bottomSheet() {
     return Container(
@@ -41,11 +42,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     onChanged: (value) {
                       setState(() {
                         if (value == true) {
-                      Get.changeTheme(ThemeData.dark());
-                    }
-                    Get.changeTheme(ThemeData.light());
+                          Get.changeTheme(ThemeData.dark());
+                        }
+                        Get.changeTheme(ThemeData.light());
                       });
-                      
                     }),
                 onTap: () {
                   setState(() {
@@ -70,7 +70,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     setState(() {
                       // themeMode = !themeMode;
                     });
-                    
                   }),
               onTap: () {
                 setState(() {
@@ -102,7 +101,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    String name = StorageService().getString("user_name");
+    String name = "User";
+    UserLoginResponseEntity userProfile = UserLoginResponseEntity();
     return Scaffold(
       body: Stack(
         children: [
@@ -136,37 +136,194 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       height: 70,
                     ),
                     Center(
-                        child: Text(
-                      "Suraj patra",
-                      style: TextStyle(color: Colors.black, fontSize: 19.5.sp),
-                    )),
+                        child: TextButton(
+                            onPressed: () {
+                              Get.defaultDialog(
+                                title: "",
+                                titlePadding: EdgeInsets.only(top: 20),
+                                contentPadding: EdgeInsets.all(20),
+                                middleText:
+                                    "Are you sure want to update your name ?", // middle text doesn't allow more than 3 lines of text therefore we use content.
+                                confirm: TextButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        name = updateName.text;
+                                        StorageService()
+                                            .setString("name", name);
+                                      });
+
+                                      Get.back();
+                                    },
+                                    child: Text("Confirm")),
+                                cancel: TextButton(
+                                    onPressed: () {
+                                      Get.back();
+                                    }, child: Text("Cancel")),
+                                content: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text("Update Your Name"),
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 8.w, vertical: 8.h),
+                                      child: TextFormField(
+                                        controller: updateName,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(),
+                                        ),
+                                        onChanged: (value) {
+                                          setState(() {
+                                            name = value;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                              // Get.dialog(Container(
+                              //   height: 100.h,
+                              //   width: 280.w,
+                              //   child: Column(
+                              //     mainAxisAlignment: MainAxisAlignment.center,
+                              //     crossAxisAlignment: CrossAxisAlignment.center,
+                              //     children: [
+                              //       Text("Update Your Name"),
+                              //       Padding(
+                              //         padding: EdgeInsets.symmetric(
+                              //             horizontal: 15.w, vertical: 8.h),
+                              //         child: TextFormField(
+                              //           controller: updateName,
+                              //           decoration: InputDecoration(
+                              //             border: OutlineInputBorder(),
+                              //           ),
+                              //           onChanged: (value) {
+                              //             setState(() {
+                              //               name = value;
+                              //             });
+                              //           },
+                              //         ),
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ));
+                            },
+                            child: Text(
+                              StorageService()
+                                            .getString("name").isEmpty ? "Oncogems": StorageService()
+                                            .getString("name"),
+                              style: TextStyle(
+                                  color: Colors.black, fontSize: 19.5.sp),
+                            ))),
                     SizedBox(
                       height: 20.h,
                     ),
-                    Expanded(
-                      child: GridView.builder(
-                          itemCount: 4,
-                          shrinkWrap: true,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2),
-                          itemBuilder: ((context, index) {
-                            return Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Container(
-                                height: 120.h,
-                                width: 120.w,
-                                decoration: BoxDecoration(
-                                    color: Colors.grey.shade200,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(15))),
-                                child: Center(
-                                  child: Text(""),
-                                ),
+                    Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10.0, vertical: 5),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(15),
+                            child: ListTile(
+                              leading: Icon(
+                                Icons.dark_mode,
                               ),
-                            );
-                          })),
-                    ),
+                              selected: true,
+                              tileColor: Colors.grey.shade400,
+                              title: Text("Dark Mode"),
+                              trailing: Switch(
+                                  activeColor: Color(0xff50a387),
+                                  value: themeMode,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      if (value == true) {
+                                        Get.changeTheme(ThemeData.dark());
+                                      }
+                                      Get.changeTheme(ThemeData.light());
+                                    });
+                                  }),
+                              onTap: () {
+                                setState(() {
+                                  themeMode = !themeMode;
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10.0, vertical: 5),
+                          child: ListTile(
+                            // selected: true,
+                            leading: Icon(
+                              Icons.notifications,
+                            ),
+                            // selectedTileColor: Colors.grey.shade400,
+                            tileColor: Colors.grey.shade400,
+                            title: Text("Notification"),
+                            trailing: Switch(
+                                activeColor: Color(0xff50a387),
+                                value: themeMode,
+                                onChanged: (value) {
+                                  setState(() {
+                                    // themeMode = !themeMode;
+                                  });
+                                }),
+                            onTap: () {
+                              setState(() {
+                                // themeMode = !themeMode;
+                              });
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10.0, vertical: 5),
+                          child: ListTile(
+                            selected: true,
+                            leading: Icon(
+                              Icons.logout,
+                            ),
+                            tileColor: Colors.grey.shade400,
+                            title: Text("logout"),
+                            onTap: () async {
+                              await auth.signOut();
+                              await StorageService().remove("user_id");
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SignUp()));
+                            },
+                          ),
+                        ),
+                      ],
+                    )
+                    // Expanded(
+                    //   child: GridView.builder(
+                    //       itemCount: 2,
+                    //       shrinkWrap: true,
+                    //       gridDelegate:
+                    //           SliverGridDelegateWithFixedCrossAxisCount(
+                    //               crossAxisCount: 2),
+                    //       itemBuilder: ((context, index) {
+                    //         return Padding(
+                    //           padding: EdgeInsets.all(10),
+                    //           child: Container(
+                    //             height: 70.h,
+                    //             width: 100.w,
+                    //             decoration: BoxDecoration(
+                    //                 color: Colors.grey.shade200,
+                    //                 borderRadius:
+                    //                     BorderRadius.all(Radius.circular(15))),
+                    //             child: Center(
+                    //               child: Text("hello"),
+                    //             ),
+                    //           ),
+                    //         );
+                    //       })),
+                    // ),
                     // Column(
                     //   children: [
 

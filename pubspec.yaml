@@ -46,6 +46,8 @@ dependencies:
   shared_preferences: ^2.2.0
   scroll_snap_list: ^0.9.1
   cached_network_image: ^3.2.3
+  cloud_firestore: ^4.7.1
+  fluttertoast: ^8.0.2
 
 dev_dependencies:
   flutter_test:

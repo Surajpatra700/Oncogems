@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StorageService {
@@ -27,4 +29,39 @@ class StorageService {
   Future<bool> remove(String key) async {
     return await _prefs!.remove(key); // Helps to remove an entry from shared preference storage
   }
+
+  Future<void> saveProfile(UserLoginResponseEntity profile) async {
+    StorageService().setString("user_profile", jsonEncode(profile));
+    // //_profile(profile);
+    // setToken(profile.accessToken!);
+  }
+}
+
+class UserLoginResponseEntity {
+  String? accessToken;
+  String? displayName;
+  String? email;
+  String? photoUrl;
+
+  UserLoginResponseEntity({
+    this.accessToken,
+    this.displayName,
+    this.email,
+    this.photoUrl,
+  });
+
+  UserLoginResponseEntity.fromJson(Map<String, dynamic> json) {
+    UserLoginResponseEntity(
+      accessToken: json["access_token"],
+      displayName: json["display_name"],
+      email: json["email"],
+      photoUrl: json["photoUrl"],
+    );
+  }
+  Map<String, dynamic> toJson() => {
+        "access_token": accessToken,
+        "display_name": displayName,
+        "email": email,
+        "photoUrl": photoUrl,
+      };
 }
