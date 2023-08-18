@@ -27,6 +27,7 @@ class _SignUpState extends State<SignUp> {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final proffesionController = TextEditingController();
   final auth = FirebaseAuth.instance;
   // final db = FirebaseFirestore.instance;
 
@@ -111,7 +112,7 @@ class _SignUpState extends State<SignUp> {
                 child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Achiever",
+                      "Oncogems",
                       style: TextStyle(
                           fontSize: 28,
                           fontWeight: FontWeight.bold,
@@ -183,6 +184,64 @@ class _SignUpState extends State<SignUp> {
                           },
                         ),
                       ),
+                      // SizedBox(height: 8.h,),
+                      // Padding(
+                      //   padding: EdgeInsets.symmetric(horizontal: 10.w),
+                      //   child: TextFormField(
+                      //     onTap: () {
+                      //       Padding(
+                      //   padding: EdgeInsets.symmetric(horizontal: 10.w),
+                      //   child: TextFormField(
+                      //     onTap: () {
+                      //       lookOnTheTextField();
+                      //     },
+                      //     onChanged: moveEyeBalls,
+                      //     controller: proffesionController,
+                      //     decoration: InputDecoration(
+                      //         hintText: "Proffesion",
+                      //         prefixIcon: const Icon(Icons.email),
+                      //         suffixIcon: PopupMenuButton(
+                      //           icon: Icon(Icons.arrow_drop_down_sharp),
+                      //           itemBuilder: (context) => [
+                      //             PopupMenuItem(value: 1, child: Text("Doctor"),onTap: (){
+                      //               setState(() {
+                      //                 proffesionController.text = "Doctor";
+                      //               });
+                      //             },),
+                      //             PopupMenuItem(value: 2, child: Text("Patient"),onTap: (){
+                      //               setState(() {
+                      //                 proffesionController.text = "Patient";
+                      //               });
+                      //             },),
+                      //         ],),
+                      //         border: OutlineInputBorder(
+                      //             borderRadius: BorderRadius.circular(120))),
+                      //     validator: (value) {
+                      //       if (value!.isEmpty) {
+                      //         return "Please enter your email";
+                      //       } else {
+                      //         return null;
+                      //       }
+                      //     },
+                      //   ),
+                      // ),
+                      //     },
+                      //     onChanged: moveEyeBalls,
+                      //     controller: emailController,
+                      //     decoration: InputDecoration(
+                      //         hintText: "Email",
+                      //         prefixIcon: const Icon(Icons.email),
+                      //         border: OutlineInputBorder(
+                      //             borderRadius: BorderRadius.circular(120))),
+                      //     validator: (value) {
+                      //       if (value!.isEmpty) {
+                      //         return "Please enter your email";
+                      //       } else {
+                      //         return null;
+                      //       }
+                      //     },
+                      //   ),
+                      // ),
                     ],
                   )),
               Padding(
@@ -328,9 +387,9 @@ class _SignUpState extends State<SignUp> {
                 borderRadius: BorderRadius.circular(25.r),
                 child: ElevatedButton(
                     onPressed: () async {
-                      // setState(() {
-                      //   check1 = true;
-                      // });
+                      setState(() {
+                        check1 = true;
+                      });
                       await Get.to(VerifyNumber());
                     },
                     style: ElevatedButton.styleFrom(
@@ -338,7 +397,7 @@ class _SignUpState extends State<SignUp> {
                         minimumSize: Size(320.w, 48.h),
                         backgroundColor: const Color(0xff50a387),
                         padding: EdgeInsets.symmetric(horizontal: 30.h)),
-                    child: check
+                    child: check1
                         ? CircularProgressIndicator(
                             strokeWidth: 3,
                             color: Colors.white,

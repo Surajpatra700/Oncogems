@@ -55,6 +55,30 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
         padding: EdgeInsets.only(top: 7.5.sp),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+            Padding(
+            padding: EdgeInsets.only(left: 15.w,top: 13.h,bottom: 13.h),
+            child: Text("Good evening",style: TextStyle(fontSize: 20.5,fontWeight: FontWeight.w600,),),
+          ),
+            Row(
+              children: [
+                Stack(
+                  children: [
+                    IconButton(onPressed: (){}, icon: Icon(Icons.notifications,size: 28,)),
+                    Positioned(
+                      left: 13.w,
+                      top: 13.h,
+                      child: CircleAvatar(radius: 4,backgroundColor: Colors.green,))
+                  ],
+                ),
+                IconButton(onPressed: (){}, icon: Icon(Icons.settings,size: 28,))
+              ],
+            ),
+            
+          ],),
+          
           SizedBox(
             height: 300.h,
             child: ScrollSnapList(
@@ -66,6 +90,8 @@ class _HomePageState extends State<HomePage> {
               scrollDirection: Axis.horizontal,
             ),
           ),
+
+
           // SizedBox(
           //     height: 210.h,
           //     child: ListView.builder(
@@ -127,16 +153,26 @@ class _HomePageState extends State<HomePage> {
           //             ),
           //           );
           //         })),
-          Align(
-            alignment: Alignment.centerRight,
-            child: TextButton(
-              onPressed: () {},
-              child: Text("See all",
-                  style: TextStyle(
-                      fontSize: 13.sp,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xFF7165D6))),
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              TextButton(
+                onPressed: () {},
+                child: Text("Talk to your care taker",
+                    style: TextStyle(
+                        fontSize: 15.5.sp,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xff50a387))),
+              ),
+              TextButton(
+                onPressed: () {},
+                child: Text("See all",
+                    style: TextStyle(
+                        fontSize: 13.sp,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.blue)),
+              ),
+            ],
           ),
           SizedBox(
             height: 0,
@@ -146,16 +182,16 @@ class _HomePageState extends State<HomePage> {
               left: 15.sp,
             ),
             child: Text(
-              "Features",
+              "Recommendations",
               style: TextStyle(
-                fontSize: 22.sp,
+                fontSize: 20.5.sp,
                 fontWeight: FontWeight.w600,
-                color: Colors.black54,
+                color: Colors.black87,
               ),
             ),
           ),
           SizedBox(
-            height: 150.h,
+            height: 170.h,
             child: ListView.builder(
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
@@ -164,13 +200,13 @@ class _HomePageState extends State<HomePage> {
                 return InkWell(
                   onTap: (){ Navigator.of(context).push(MaterialPageRoute(builder: (context) => formpage()));},
                   child: Container(
-                    width: 135.w,
+                    width: 170.w,
                     margin:
-                        EdgeInsets.symmetric(vertical: 9.sp, horizontal: 10.sp),
+                        EdgeInsets.symmetric(vertical: 10.h, horizontal: 5.w),
                     padding: EdgeInsets.symmetric(horizontal: 15.sp),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [Colors.green, Colors.white],
+                        colors: [ Colors.grey.shade400,Colors.white],
                         begin: Alignment.bottomLeft,
                         end: Alignment.topRight,
                       ),
@@ -188,16 +224,16 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           CircleAvatar(
-                            radius: 35.sp,
+                            radius: 45.sp,
                             backgroundImage:
                                 AssetImage("assets/images/${domainimage[index]}"),
                           ),
                           Text(
                             domains[index],
                             style: TextStyle(
-                              fontSize: 16.sp,
+                              fontSize: 17.sp,
                               fontWeight: FontWeight.w500,
-                              color: Colors.black54,
+                              color: Colors.black,
                             ),
                           ),
                         ],
@@ -215,9 +251,9 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.only(left: 16),
             child: Text("Measurements",
                 style: TextStyle(
-                  fontSize: 22.sp,
+                  fontSize: 20.5.sp,
                   fontWeight: FontWeight.w600,
-                  color: Colors.black54,
+                  color: Colors.black87,
                 )),
           ),
           GridView.builder(
@@ -237,11 +273,12 @@ class _HomePageState extends State<HomePage> {
                   padding: EdgeInsets.symmetric(vertical: 15.sp),
                   decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [Colors.green, Colors.white],
+                        //colors: [Colors.green, Colors.white],
+                        colors: [ Colors.grey.shade400,Colors.white],
                         begin: Alignment.bottomLeft,
                         end: Alignment.topRight,
                       ),
-                      borderRadius: BorderRadius.circular(30.sp),
+                      borderRadius: BorderRadius.circular(18.r),
                       boxShadow: [
                         BoxShadow(
                             color: Colors.black12,
@@ -356,7 +393,15 @@ Widget _buildListItem(BuildContext context, int index) {
               //     ],
               //   ),
               // ),
-              Container(height: 200,child: Image.network(info.imagePath,fit: BoxFit.cover,),),
+              ClipRRect(
+                borderRadius: BorderRadius.vertical(top: Radius.elliptical(13.5.r,13.5.r)),
+                child: Container(height: 200.h,
+                decoration: BoxDecoration(borderRadius: BorderRadius.vertical(top: Radius.elliptical(10.r, 10.r))),
+                child: Padding(
+                  padding: EdgeInsets.only(top: 4.h),
+                  child: Image.network(info.imagePath,fit: BoxFit.cover,),
+                ),),
+              ),
       
               Padding(
                 padding: EdgeInsets.only(top: 8.h),
