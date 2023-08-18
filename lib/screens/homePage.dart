@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, unnecessary_const
 
 import 'package:achiever/screens/Form%20Page/formpage.dart';
+import 'package:achiever/screens/testing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:scroll_snap_list/scroll_snap_list.dart';
@@ -228,7 +229,9 @@ class _HomePageState extends State<HomePage> {
             physics: NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
               return InkWell(
-                onTap: () {},
+                onTap: () {
+                 // Navigator.of(context).push(MaterialPageRoute(builder: (context) => test()));
+                },
                 child: Container(
                   margin: EdgeInsets.all(10.sp),
                   padding: EdgeInsets.symmetric(vertical: 15.sp),
