@@ -266,7 +266,7 @@ class _HomePageState extends State<HomePage> {
             itemBuilder: (context, index) {
               return InkWell(
                 onTap: () {
-                 // Navigator.of(context).push(MaterialPageRoute(builder: (context) => test()));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => test()));
                 },
                 child: Container(
                   margin: EdgeInsets.all(10.sp),

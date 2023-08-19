@@ -420,8 +420,8 @@ class FormState extends State<formpage> {
                       controller: prevController,
                       decoration: InputDecoration(
                         //   icon: const Icon(Icons.calendar_today),
-                        hintText: 'Previous Known Cirrhosis',
-                        labelText: 'Enter Yes or No',
+                        hintText: 'Enter Yes or No',
+                        labelText: 'Previous Known Cirrhosis',
                         border: OutlineInputBorder(),
                         suffixIcon: PopupMenuButton(
                             icon: Icon(Icons.arrow_drop_down),
