@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:achiever/screens/authentications/signupPage.dart';
+import 'package:achiever/screens/uploadimage.dart';
 import 'package:achiever/services/storage_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -89,7 +90,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               onTap: () async {
                 await auth.signOut();
                 await StorageService().remove("user_id");
-                Navigator.push(
+                Navigator.pop(
                     context, MaterialPageRoute(builder: (context) => SignUp()));
               },
             ),
@@ -356,7 +357,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         radius: 18.r,
                         child: Center(
                           child: IconButton(
-                              onPressed: () {},
+                              onPressed: (
+
+                                  ) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => UploadImageScreen()));
+                              },
                               icon: Icon(
                                 Icons.edit,
                                 color: Colors.white,
