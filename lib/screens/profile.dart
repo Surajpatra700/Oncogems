@@ -1,19 +1,12 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_interpolation_to_compose_strings
-
-import 'dart:io';
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:achiever/screens/authentications/signupPage.dart';
 import 'package:achiever/screens/uploadimage.dart';
 import 'package:achiever/services/storage_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-
-import '../services/toast.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -27,24 +20,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final user = FirebaseAuth.instance.currentUser;
   bool themeMode = false;
   final updateName = TextEditingController();
-  bool loading = false;
-  File? _image;
-  final picker = ImagePicker();
-
-  firebase_storage.FirebaseStorage storage =
-      firebase_storage.FirebaseStorage.instance;
-  DatabaseReference databaseRef = FirebaseDatabase.instance.ref('Post');
-  final profile = StorageService().getString("profilePhoto");
-
-  Future getImageGallery() async {
-    final pickedFile =
-        await picker.pickImage(source: ImageSource.gallery, imageQuality: 80);
-    setState(() {
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
-      } else {}
-    });
-  }
 
   Widget bottomSheet() {
     return Container(
@@ -184,8 +159,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 cancel: TextButton(
                                     onPressed: () {
                                       Get.back();
-                                    },
-                                    child: Text("Cancel")),
+                                    }, child: Text("Cancel")),
                                 content: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -237,9 +211,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               // ));
                             },
                             child: Text(
-                              StorageService().getString("name").isEmpty
-                                  ? "Oncogems"
-                                  : StorageService().getString("name"),
+                              StorageService()
+                                            .getString("name").isEmpty ? "Oncogems": StorageService()
+                                            .getString("name"),
                               style: TextStyle(
                                   color: Colors.black, fontSize: 19.5.sp),
                             ))),
@@ -367,19 +341,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
               alignment: Alignment.topCenter,
               child: Stack(
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(60),
-
-                    // backgroundColor: Colors.grey.shade300,
-                    // radius: 60.r,
-                    child: profile.isNotEmpty
-                        ? CircleAvatar(
-                            radius: 60.r,
-                            child: Image.network(
-                              profile.toString(), height: 140.h,width: 140.w,
-                              fit: BoxFit.cover,
-                            ))
-                        : Icon(Icons.person, size: 50),
+                  CircleAvatar(
+                    backgroundColor: Colors.grey.shade300,
+                    radius: 60.r,
+                    child: Image.network(
+                      "https://cdn.pixabay.com/photo/2015/03/04/22/35/avatar-659651_640.png",
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   Positioned(
                       bottom: 5.h,
@@ -389,56 +357,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         radius: 18.r,
                         child: Center(
                           child: IconButton(
-                              onPressed: () {
-                                getImageGallery().then((value) {
-                                  firebase_storage.Reference ref =
-                                      firebase_storage.FirebaseStorage.instance
-                                          .ref('/profile/' +
-                                              StorageService()
-                                                  .getString("user_id"));
-                                  firebase_storage.UploadTask uploadTask =
-                                      ref.putFile(_image!.absolute);
+                              onPressed: (
 
-                                  Future.value(uploadTask).then((value) async {
-                                    var newUrl = await ref.getDownloadURL();
-                                    setState(() {
-                                      StorageService()
-                                          .setString("profilePhoto", newUrl);
-                                    });
-
-                                    // databaseRef
-                                    //     .child(
-                                    //         StorageService().getString("user_id"))
-                                    //     .set({
-                                    //   'id': StorageService().getString("user_id"),
-                                    //   'image': newUrl.toString()
-                                    // }).then((value) {
-                                    //   setState(() {
-                                    //     loading = false;
-                                    //   });
-                                    //   Utils().toastMessage(
-                                    //       'Updated Succesfully', true);
-                                    // }).onError((error, stackTrace) {
-                                    //   print(error.toString());
-                                    //   setState(() {
-                                    //     loading = false;
-                                    //   });
-                                    // });
-                                    Utils().toastMessage(
-                                        'Updated Succesfully', true);
-                                  }).onError((error, stackTrace) {
-                                    Utils()
-                                        .toastMessage(error.toString(), false);
-                                    setState(() {
-                                      loading = false;
-                                    });
-                                  });
-                                }).onError((error, stackTrace) {
-                                  Utils().toastMessage(error.toString(), false);
-                                  setState(() {
-                                    loading = false;
-                                  });
-                                });
+                                  ) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => UploadImageScreen()));
                               },
                               icon: Icon(
                                 Icons.edit,
