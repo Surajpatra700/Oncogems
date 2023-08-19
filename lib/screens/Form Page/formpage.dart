@@ -47,6 +47,7 @@ class FormState extends State<formpage> {
   final mdm_survivalController = TextEditingController();
   final sizeController = TextEditingController();
   final PredictionService predictionService = PredictionService();
+  String submitChange = "Submit";
 
   Widget checkData() {
     return StreamBuilder(
@@ -490,7 +491,7 @@ class FormState extends State<formpage> {
                             ),
                           )
                         : Text(
-                            checkData().toString() == "1" ? 'Update' : 'Submit',
+                            submitChange,
                             style: TextStyle(
                                 fontSize: 25.sp,
                                 fontFamily: "Caveat-VariableFont_wght"),
@@ -512,34 +513,34 @@ class FormState extends State<formpage> {
 
                         // UPDATING DATA IN FIRESTORE DB
 
-                        if (checkData().toString() == "1") {
-                          firestore.doc(id).update({
-                            "id": id,
-                            "bleed": bleedController.text,
-                            "cirrhosis": cirrController.text,
-                            "size": sizeController.text,
-                            "HCC_TNM_Stage": hController.text,
-                            "ICC_TNM_Stage": iController.text,
-                            "Survival_fromMDM": mdm_survivalController.text,
-                            "Surveillance_effectiveness": sController.text,
-                            "PS": pController.text,
-                            "Prev_known_cirrhosis": prevController.text,
-                          }).then((value) {
-                            setState(() {
-                              loading = false;
-                            });
-                            Utils().toastMessage("Succesfully Updated", true);
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => HomeScreen()));
-                          }).onError((error, stackTrace) {
-                            setState(() {
-                              loading = false;
-                            });
-                            Utils().toastMessage(error.toString(), false);
-                          });
-                        }
+                        // if (checkData().toString() == "1") {
+                        //   firestore.doc(id).update({
+                        //     "id": id,
+                        //     "bleed": bleedController.text,
+                        //     "cirrhosis": cirrController.text,
+                        //     "size": sizeController.text,
+                        //     "HCC_TNM_Stage": hController.text,
+                        //     "ICC_TNM_Stage": iController.text,
+                        //     "Survival_fromMDM": mdm_survivalController.text,
+                        //     "Surveillance_effectiveness": sController.text,
+                        //     "PS": pController.text,
+                        //     "Prev_known_cirrhosis": prevController.text,
+                        //   }).then((value) {
+                        //     setState(() {
+                        //       loading = false;
+                        //     });
+                        //     Utils().toastMessage("Succesfully Updated", true);
+                        //     Navigator.push(
+                        //         context,
+                        //         MaterialPageRoute(
+                        //             builder: (context) => HomeScreen()));
+                        //   }).onError((error, stackTrace) {
+                        //     setState(() {
+                        //       loading = false;
+                        //     });
+                        //     Utils().toastMessage(error.toString(), false);
+                        //   });
+                        // }
 
                         // INSERTING DATA TO FIRESTORE DB
                         Map<String, double> data = {
@@ -563,40 +564,72 @@ class FormState extends State<formpage> {
                           setState(() {
                             predictionResult = result;
                             print(predictionResult);
-                            StorageService().setString(
-                                "prediction_result", jsonEncode(predictionResult['prediction']));
+                            StorageService().setString("prediction_result",
+                                jsonEncode(predictionResult['prediction']));
                           });
                         } catch (error) {
                           print('Error: $error');
                         }
+                        if (submitChange == 'Submit') {
+                          firestore.doc(id).set({
+                            "id": id,
+                            "bleed": bleedController.text,
+                            "cirrhosis": cirrController.text,
+                            "size": sizeController.text,
+                            "HCC_TNM_Stage": hController.text,
+                            "ICC_TNM_Stage": iController.text,
+                            "Survival_fromMDM": mdm_survivalController.text,
+                            "Surveillance_effectiveness": sController.text,
+                            "PS": pController.text,
+                            "Prev_known_cirrhosis": prevController.text,
+                          }).then((value) {
+                            setState(() {
+                              loading = false;
+                              submitChange = 'Update';
+                              StorageService()
+                                  .setString("ButtonName", submitChange);
+                            });
+                            Utils().toastMessage("Succesfully Uploaded", true);
 
-                        firestore.doc(id).set({
-                          "id": id,
-                          "bleed": bleedController.text,
-                          "cirrhosis": cirrController.text,
-                          "size": sizeController.text,
-                          "HCC_TNM_Stage": hController.text,
-                          "ICC_TNM_Stage": iController.text,
-                          "Survival_fromMDM": mdm_survivalController.text,
-                          "Surveillance_effectiveness": sController.text,
-                          "PS": pController.text,
-                          "Prev_known_cirrhosis": prevController.text,
-                        }).then((value) {
-                          setState(() {
-                            loading = false;
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => HomeScreen()));
+                          }).onError((error, stackTrace) {
+                            setState(() {
+                              loading = false;
+                            });
+                            Utils().toastMessage(error.toString(), false);
                           });
-                          Utils().toastMessage("Succesfully Uploaded", true);
+                        } else if (submitChange == 'Update') {
+                          firestore.doc(id).update({
+                            "id": id,
+                            "bleed": bleedController.text,
+                            "cirrhosis": cirrController.text,
+                            "size": sizeController.text,
+                            "HCC_TNM_Stage": hController.text,
+                            "ICC_TNM_Stage": iController.text,
+                            "Survival_fromMDM": mdm_survivalController.text,
+                            "Surveillance_effectiveness": sController.text,
+                            "PS": pController.text,
+                            "Prev_known_cirrhosis": prevController.text,
+                          }).then((value) {
+                            setState(() {
+                              loading = false;
+                            });
+                            Utils().toastMessage("Succesfully Updated", true);
 
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => HomeScreen()));
-                        }).onError((error, stackTrace) {
-                          setState(() {
-                            loading = false;
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => HomeScreen()));
+                          }).onError((error, stackTrace) {
+                            setState(() {
+                              loading = false;
+                            });
+                            Utils().toastMessage(error.toString(), false);
                           });
-                          Utils().toastMessage(error.toString(), false);
-                        });
+                        }
                       } else {
                         Utils().toastMessage("Please enter Data", false);
                       }
@@ -606,7 +639,8 @@ class FormState extends State<formpage> {
               // // predictionResult.isNotEmpty
               //     ? Text('Prediction Result: $predictionResult')
               //     : SizedBox(),/
-              Text('Prediction Result: ${StorageService().getString('prediction_result')}')
+              Text(
+                  'Prediction Result: ${StorageService().getString('prediction_result')}')
             ],
           ),
         ));
