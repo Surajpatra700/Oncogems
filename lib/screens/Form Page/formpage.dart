@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:achiever/screens/homeScreen.dart';
 import 'package:achiever/services/liver_prediction%20ML%20Model/predict_service.dart';
+import 'package:achiever/services/liver_prediction%20ML%20Model/resultScreen.dart';
 import 'package:achiever/services/storage_services.dart';
 import 'package:achiever/services/toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -47,7 +48,7 @@ class FormState extends State<formpage> {
   final mdm_survivalController = TextEditingController();
   final sizeController = TextEditingController();
   final PredictionService predictionService = PredictionService();
-  String submitChange = "Submit";
+  String submitChange =  StorageService().getString("ButtonName") ==""  ? "Submit" : StorageService().getString("ButtonName");
 
   Widget checkData() {
     return StreamBuilder(
@@ -588,8 +589,23 @@ class FormState extends State<formpage> {
                               submitChange = 'Update';
                               StorageService()
                                   .setString("ButtonName", submitChange);
+                              // submitChange =
+                              //   StorageService().getString("ButtonName");
                             });
+                            // submitChange =
+                            //     StorageService().getString("ButtonName");
                             Utils().toastMessage("Succesfully Uploaded", true);
+                            if(StorageService().getString('prediction_result') == "0"){
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ResultScreen(value: "0",)));
+                            }else{
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ResultScreen(value: "1",)));
+                            }
 
                             // Navigator.push(
                             //     context,
@@ -619,10 +635,17 @@ class FormState extends State<formpage> {
                             });
                             Utils().toastMessage("Succesfully Updated", true);
 
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => HomeScreen()));
+                            if(StorageService().getString('prediction_result') == "0"){
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ResultScreen(value: "0",)));
+                            }else{
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ResultScreen(value: "1",)));
+                            }
                           }).onError((error, stackTrace) {
                             setState(() {
                               loading = false;

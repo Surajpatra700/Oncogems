@@ -1,8 +1,8 @@
 // ignore_for_file: use_build_context_synchronously, prefer_const_constructors
 
-
 import 'package:achiever/screens/authentications/login.dart';
 import 'package:achiever/screens/authentications/phone_auth.dart';
+import 'package:achiever/screens/doctor_screens/doctor_form.dart';
 import 'package:achiever/screens/homeScreen.dart';
 import 'package:achiever/services/storage_services.dart';
 import 'package:flutter/material.dart';
@@ -178,9 +178,51 @@ class _SignUpState extends State<SignUp> {
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Please enter your password";
-                            } else {
-                              return null;
-                            }
+                            } else {}
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.w),
+                        child: TextFormField(
+                          onTap: () {
+                            lookOnTheTextField();
+                          },
+                          onChanged: moveEyeBalls,
+                          controller: proffesionController,
+                          decoration: InputDecoration(
+                              hintText: "Domain",
+                              labelText: "Enter your domain",
+                              suffixIcon: PopupMenuButton(
+                                icon: Icon(Icons.arrow_drop_down),
+                                  itemBuilder: (context) => [
+                                        PopupMenuItem(
+                                          value: 1,
+                                          child: Text("Doctor"),
+                                          onTap: () {
+                                            setState(() {
+                                              proffesionController.text =
+                                                "Doctor";
+                                            });
+                                            
+                                          },
+                                        ),
+                                        PopupMenuItem(
+                                            value: 2, child: Text("Patient"),onTap: () {
+                                            setState(() {
+                                              proffesionController.text =
+                                                "Patient";
+                                            });
+                                            
+                                          },),
+                                      ]),
+                              // prefixIcon: const Icon(Icons.email),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(120))),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Please enter your domain";
+                            } else {}
                           },
                         ),
                       ),
@@ -292,8 +334,6 @@ class _SignUpState extends State<SignUp> {
                               //asyncPostAllData();
                               await StorageService().saveProfile(userProfile);
 
-
-
                               // var userbase = await db
                               //     .collection("users")
                               //     .withConverter(
@@ -344,11 +384,20 @@ class _SignUpState extends State<SignUp> {
                               successTrigger?.fire();
                               Get.snackbar("Achiever", "Succesfully SignedIn",
                                   colorText: const Color(0xff50a387));
-                              Navigator.push(
+                                if(proffesionController.text == "Doctor"){
+                                  Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: ((context) =>
+                                          DoctorForm())));
+                                }else{
+                                  Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: ((context) =>
                                           const HomeScreen())));
+                                }
+                              
                             });
                           }).onError((error, stackTrace) {
                             setState(() {

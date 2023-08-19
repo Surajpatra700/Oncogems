@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, unnecessary_const
 
 import 'package:achiever/screens/Form%20Page/formpage.dart';
+import 'package:achiever/screens/doctor_screens/doctor_form.dart';
 import 'package:achiever/screens/testing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -198,7 +199,13 @@ class _HomePageState extends State<HomePage> {
               itemCount: domains.length,
               itemBuilder: (context, index) {
                 return InkWell(
-                  onTap: (){ Navigator.of(context).push(MaterialPageRoute(builder: (context) => formpage()));},
+                  onTap: (){
+                    if(index == 1){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => formpage()));
+                    }else if(index == 2){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => DoctorForm()));
+                    }
+                  },
                   child: Container(
                     width: 170.w,
                     margin:
