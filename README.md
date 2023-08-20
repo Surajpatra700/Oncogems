@@ -1,16 +1,7 @@
 # Oncogems
 
-A new Flutter project.
+An AI-Driven App for Early Detection of Liver and Oral cancer.
 
-## Getting Started
+## Apk link
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Oncogems.apk](https://drive.google.com/file/d/1FY14LbJE20K4AsAJyyfZa9Q5ifezI57C/view?usp=sharing)
