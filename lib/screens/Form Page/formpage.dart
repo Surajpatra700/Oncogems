@@ -1,5 +1,3 @@
-// ignore_for_file: unrelated_type_equality_checks
-
 import 'dart:convert';
 
 import 'package:achiever/screens/homeScreen.dart';
@@ -14,7 +12,6 @@ import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class formpage extends StatefulWidget {
-  //class MyCustomForm extends StatefulWidget {
   @override
   FormState createState() {
     return FormState();
@@ -24,19 +21,11 @@ class formpage extends StatefulWidget {
 class FormState extends State<formpage> {
   final id = StorageService().getString("user_id");
   bool loading = false;
-  // String id = DateTime.now().microsecondsSinceEpoch.toString();
-  //@override
-  // void initState() {
-  //   super.initState();
-  //   id = value;
-  // }
 
-  // final id = FirebaseAuth.instance.currentUser!.uid;
   final firestore = FirebaseFirestore.instance.collection("records");
   final firestoreSnapshot =
       FirebaseFirestore.instance.collection("records").snapshots();
-  // Create a global key that uniquely identifies the Form widget
-  // and allows validation of the form.
+
   final _formKey = GlobalKey<FormState>();
   final bleedController = TextEditingController();
   final cirrController = TextEditingController();
@@ -48,35 +37,31 @@ class FormState extends State<formpage> {
   final mdm_survivalController = TextEditingController();
   final sizeController = TextEditingController();
   final PredictionService predictionService = PredictionService();
-  String submitChange =  StorageService().getString("ButtonName") ==""  ? "Submit" : StorageService().getString("ButtonName");
+  String submitChange = StorageService().getString("ButtonName") == ""
+      ? "Submit"
+      : StorageService().getString("ButtonName");
 
-  Widget checkData() {
-    return StreamBuilder(
-        stream: firestoreSnapshot,
-        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Text("Loading");
-          } else if (snapshot.data!.docs == id) {
-            return Text("1");
-          }
-          return Text("0");
-        });
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    checkData();
-  }
+  // Widget checkData() {
+  //   return StreamBuilder(
+  //       stream: firestoreSnapshot,
+  //       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+  //         if (snapshot.connectionState == ConnectionState.waiting) {
+  //           return Text("Loading");
+  //         } else if (snapshot.data!.docs == id) {
+  //           return Text("1");
+  //         }
+  //         return Text("0");
+  //       });
+  // }
 
   @override
   Widget build(BuildContext context) {
     Map<String, dynamic> predictionResult = {};
-    // Build a Form widget using the _formKey created above.
+
     return Scaffold(
         backgroundColor: Colors.grey.shade200,
         body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
           padding: EdgeInsets.only(
               left: 15.sp, right: 15.sp, bottom: 15.sp, top: 50.sp),
           child: Column(
@@ -95,7 +80,7 @@ class FormState extends State<formpage> {
                 key: _formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
+                  children: [
                     TextFormField(
                       controller: bleedController,
                       decoration: InputDecoration(
@@ -184,12 +169,9 @@ class FormState extends State<formpage> {
                     SizedBox(
                       height: 15.sp,
                     ),
-
                     TextFormField(
                       controller: sizeController,
                       decoration: const InputDecoration(
-                        // icon: const Icon(Icons.calendar_today),
-
                         hintText: 'Enter size of tumor',
                         labelText: 'Size',
                         border: OutlineInputBorder(),
@@ -206,7 +188,6 @@ class FormState extends State<formpage> {
                     TextFormField(
                       controller: hController,
                       decoration: InputDecoration(
-                        // icon: const Icon(Icons.calendar_today),
                         hintText: 'Enter your HCC TNM Stage',
                         labelText: 'HCC TNM Stage',
                         border: OutlineInputBorder(),
@@ -259,7 +240,6 @@ class FormState extends State<formpage> {
                     TextFormField(
                       controller: iController,
                       decoration: InputDecoration(
-                        //icon: const Icon(Icons.calendar_today),
                         hintText: 'Enter your ICC TNM Stage',
                         labelText: 'ICC TNM Stage',
                         border: OutlineInputBorder(),
@@ -312,7 +292,6 @@ class FormState extends State<formpage> {
                     TextFormField(
                       controller: mdm_survivalController,
                       decoration: const InputDecoration(
-                        //icon: const Icon(Icons.calendar_today),
                         hintText: 'Enter Survival From MDM',
                         labelText: 'Survival From MDM',
                         border: OutlineInputBorder(),
@@ -329,7 +308,6 @@ class FormState extends State<formpage> {
                     TextFormField(
                       controller: sController,
                       decoration: InputDecoration(
-                        //  icon: const Icon(Icons.calendar_today),
                         hintText: 'Enter Surveillance effectiveness',
                         labelText: 'Surveillance effectiveness',
                         border: OutlineInputBorder(),
@@ -371,11 +349,9 @@ class FormState extends State<formpage> {
                     SizedBox(
                       height: 15.sp,
                     ),
-
                     TextFormField(
                       controller: pController,
                       decoration: InputDecoration(
-                        //  icon: const Icon(Icons.calendar_today),
                         hintText: 'Enter PS',
                         labelText: 'PS',
                         border: OutlineInputBorder(),
@@ -420,7 +396,6 @@ class FormState extends State<formpage> {
                     TextFormField(
                       controller: prevController,
                       decoration: InputDecoration(
-                        //   icon: const Icon(Icons.calendar_today),
                         hintText: 'Enter Yes or No',
                         labelText: 'Previous Known Cirrhosis',
                         border: OutlineInputBorder(),
@@ -459,209 +434,172 @@ class FormState extends State<formpage> {
                         }
                       },
                     ),
-                    // Container(
-                    //     padding: const EdgeInsets.only(left: 130.0, top: 40.0),
-                    //     child: ElevatedButton(
-                    //       child: const Text('Submit'),
-                    //       onPressed: () {
-                    //         // It returns true if the form is valid, otherwise returns false
-                    //
-                    //         if (_formKey.currentState) {
-                    //           // If the form is valid, display a Snackbar.
-                    //           // Scaffold.of(context).showSnackBar(SnackBar(content: Text('Data is in processing.')));
-                    //           Get.snackbar("Oncogems", "Data is in processing");
-                    //         }
-                    //       },
-                    //     )),
                   ],
                 ),
               ),
-              Container(
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.only(top: 40),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        elevation: 4,
-                        minimumSize: Size(240, 48),
-                        backgroundColor: const Color(0xff50a387),
-                        padding: const EdgeInsets.symmetric(horizontal: 55)),
+              Padding(
+                padding: EdgeInsets.only(top: 20.h, bottom: 10.h),
+                child: InkWell(
+                  onTap: () async {
+                    if (bleedController.text != null &&
+                        cirrController.text != null &&
+                        sizeController.text != null &&
+                        hController.text != null &&
+                        iController.text != null &&
+                        mdm_survivalController.text != null &&
+                        sController.text != null &&
+                        pController.text != null &&
+                        prevController.text != null) {
+                      Get.snackbar("Oncogems", "Data is processing");
+                      setState(() {
+                        loading = true;
+                      });
+
+                      Map<String, double> data = {
+                        "Bleed": double.parse(bleedController.text),
+                        "Cirrhosis": double.parse(cirrController.text),
+                        "size": double.parse(sizeController.text),
+                        "HCC_TNM_Stage": double.parse(hController.text),
+                        "ICC_TNM_Stage": double.parse(iController.text),
+                        "Survival_fromMDM":
+                            double.parse(mdm_survivalController.text),
+                        "Surveillance_effectiveness":
+                            double.parse(sController.text),
+                        "PS": double.parse(pController.text),
+                        "Prev_known_cirrhosis":
+                            double.parse(prevController.text),
+                      };
+                      try {
+                        final result =
+                            await predictionService.makePrediction(data);
+
+                        setState(() {
+                          predictionResult = result;
+                          print(predictionResult);
+                          StorageService().setString("prediction_result",
+                              jsonEncode(predictionResult['prediction']));
+                        });
+                      } catch (error) {
+                        print('Error: $error');
+                      }
+                      if (submitChange == 'Submit') {
+                        firestore.doc(id).set({
+                          "id": id,
+                          "bleed": bleedController.text,
+                          "cirrhosis": cirrController.text,
+                          "size": sizeController.text,
+                          "HCC_TNM_Stage": hController.text,
+                          "ICC_TNM_Stage": iController.text,
+                          "Survival_fromMDM": mdm_survivalController.text,
+                          "Surveillance_effectiveness": sController.text,
+                          "PS": pController.text,
+                          "Prev_known_cirrhosis": prevController.text,
+                        }).then((value) {
+                          setState(() {
+                            loading = false;
+                            submitChange = 'Update';
+                            StorageService()
+                                .setString("ButtonName", submitChange);
+                          });
+
+                          Utils().toastMessage("Succesfully Uploaded", true);
+                          if (StorageService().getString('prediction_result') ==
+                              "0") {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ResultScreen(
+                                          value: "0",
+                                        )));
+                          } else if (StorageService()
+                                  .getString('prediction_result') ==
+                              "1") {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ResultScreen(
+                                          value: "1",
+                                        )));
+                          }
+                        }).onError((error, stackTrace) {
+                          setState(() {
+                            loading = false;
+                          });
+                          Utils().toastMessage(error.toString(), false);
+                        });
+                      } else if (submitChange == 'Update') {
+                        firestore.doc(id).update({
+                          "id": id,
+                          "bleed": bleedController.text,
+                          "cirrhosis": cirrController.text,
+                          "size": sizeController.text,
+                          "HCC_TNM_Stage": hController.text,
+                          "ICC_TNM_Stage": iController.text,
+                          "Survival_fromMDM": mdm_survivalController.text,
+                          "Surveillance_effectiveness": sController.text,
+                          "PS": pController.text,
+                          "Prev_known_cirrhosis": prevController.text,
+                        }).then((value) {
+                          setState(() {
+                            loading = false;
+                          });
+                          Utils().toastMessage("Succesfully Updated", true);
+
+                          if (StorageService().getString('prediction_result') ==
+                              "0") {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ResultScreen(
+                                          value: "0",
+                                        )));
+                          } else if (StorageService()
+                                  .getString('prediction_result') ==
+                              "1") {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ResultScreen(
+                                          value: "1",
+                                        )));
+                          }
+                        }).onError((error, stackTrace) {
+                          setState(() {
+                            loading = false;
+                          });
+                          Utils().toastMessage(error.toString(), false);
+                        });
+                      }
+                    } else {
+                      Utils().toastMessage("Please enter Data", false);
+                    }
+                  },
+                  child: Container(
+                    height: 50,
+                    width: 140,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15.r),
+                      color: Color(0xff50a387),
+                    ),
                     child: loading
                         ? Center(
                             child: CircularProgressIndicator(
                               color: Colors.white,
                             ),
                           )
-                        : Text(
-                            submitChange,
-                            style: TextStyle(
-                                fontSize: 25.sp,
-                                fontFamily: "Caveat-VariableFont_wght"),
+                        : Center(
+                            child: Text(
+                              submitChange,
+                              style: TextStyle(
+                                  fontSize: 25.sp,
+                                  fontFamily: "Caveat-VariableFont_wght",
+                                  color: Colors.white),
+                            ),
                           ),
-                    onPressed: () async {
-                      if (bleedController.text != null &&
-                          cirrController.text != null &&
-                          sizeController.text != null &&
-                          hController.text != null &&
-                          iController.text != null &&
-                          mdm_survivalController.text != null &&
-                          sController.text != null &&
-                          pController.text != null &&
-                          prevController.text != null) {
-                        Get.snackbar("Oncogems", "Data is processing");
-                        setState(() {
-                          loading = true;
-                        });
-
-                        // UPDATING DATA IN FIRESTORE DB
-
-                        // if (checkData().toString() == "1") {
-                        //   firestore.doc(id).update({
-                        //     "id": id,
-                        //     "bleed": bleedController.text,
-                        //     "cirrhosis": cirrController.text,
-                        //     "size": sizeController.text,
-                        //     "HCC_TNM_Stage": hController.text,
-                        //     "ICC_TNM_Stage": iController.text,
-                        //     "Survival_fromMDM": mdm_survivalController.text,
-                        //     "Surveillance_effectiveness": sController.text,
-                        //     "PS": pController.text,
-                        //     "Prev_known_cirrhosis": prevController.text,
-                        //   }).then((value) {
-                        //     setState(() {
-                        //       loading = false;
-                        //     });
-                        //     Utils().toastMessage("Succesfully Updated", true);
-                        //     Navigator.push(
-                        //         context,
-                        //         MaterialPageRoute(
-                        //             builder: (context) => HomeScreen()));
-                        //   }).onError((error, stackTrace) {
-                        //     setState(() {
-                        //       loading = false;
-                        //     });
-                        //     Utils().toastMessage(error.toString(), false);
-                        //   });
-                        // }
-
-                        // INSERTING DATA TO FIRESTORE DB
-                        Map<String, double> data = {
-                          "Bleed": double.parse(bleedController.text),
-                          "Cirrhosis": double.parse(cirrController.text),
-                          "size": double.parse(sizeController.text),
-                          "HCC_TNM_Stage": double.parse(hController.text),
-                          "ICC_TNM_Stage": double.parse(iController.text),
-                          "Survival_fromMDM":
-                              double.parse(mdm_survivalController.text),
-                          "Surveillance_effectiveness":
-                              double.parse(sController.text),
-                          "PS": double.parse(pController.text),
-                          "Prev_known_cirrhosis":
-                              double.parse(prevController.text),
-                        };
-                        try {
-                          final result =
-                              await predictionService.makePrediction(data);
-
-                          setState(() {
-                            predictionResult = result;
-                            print(predictionResult);
-                            StorageService().setString("prediction_result",
-                                jsonEncode(predictionResult['prediction']));
-                          });
-                        } catch (error) {
-                          print('Error: $error');
-                        }
-                        if (submitChange == 'Submit') {
-                          firestore.doc(id).set({
-                            "id": id,
-                            "bleed": bleedController.text,
-                            "cirrhosis": cirrController.text,
-                            "size": sizeController.text,
-                            "HCC_TNM_Stage": hController.text,
-                            "ICC_TNM_Stage": iController.text,
-                            "Survival_fromMDM": mdm_survivalController.text,
-                            "Surveillance_effectiveness": sController.text,
-                            "PS": pController.text,
-                            "Prev_known_cirrhosis": prevController.text,
-                          }).then((value) {
-                            setState(() {
-                              loading = false;
-                              submitChange = 'Update';
-                              StorageService()
-                                  .setString("ButtonName", submitChange);
-                              // submitChange =
-                              //   StorageService().getString("ButtonName");
-                            });
-                            // submitChange =
-                            //     StorageService().getString("ButtonName");
-                            Utils().toastMessage("Succesfully Uploaded", true);
-                            if(StorageService().getString('prediction_result') == "0"){
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ResultScreen(value: "0",)));
-                            }else{
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ResultScreen(value: "1",)));
-                            }
-
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => HomeScreen()));
-                          }).onError((error, stackTrace) {
-                            setState(() {
-                              loading = false;
-                            });
-                            Utils().toastMessage(error.toString(), false);
-                          });
-                        } else if (submitChange == 'Update') {
-                          firestore.doc(id).update({
-                            "id": id,
-                            "bleed": bleedController.text,
-                            "cirrhosis": cirrController.text,
-                            "size": sizeController.text,
-                            "HCC_TNM_Stage": hController.text,
-                            "ICC_TNM_Stage": iController.text,
-                            "Survival_fromMDM": mdm_survivalController.text,
-                            "Surveillance_effectiveness": sController.text,
-                            "PS": pController.text,
-                            "Prev_known_cirrhosis": prevController.text,
-                          }).then((value) {
-                            setState(() {
-                              loading = false;
-                            });
-                            Utils().toastMessage("Succesfully Updated", true);
-
-                            if(StorageService().getString('prediction_result') == "0"){
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ResultScreen(value: "0",)));
-                            }else{
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ResultScreen(value: "1",)));
-                            }
-                          }).onError((error, stackTrace) {
-                            setState(() {
-                              loading = false;
-                            });
-                            Utils().toastMessage(error.toString(), false);
-                          });
-                        }
-                      } else {
-                        Utils().toastMessage("Please enter Data", false);
-                      }
-                    },
-                  )),
+                  ),
+                ),
+              ),
               SizedBox(height: 16),
-              // // predictionResult.isNotEmpty
-              //     ? Text('Prediction Result: $predictionResult')
-              //     : SizedBox(),/
               Text(
                   'Prediction Result: ${StorageService().getString('prediction_result')}')
             ],

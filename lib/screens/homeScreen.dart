@@ -17,6 +17,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _index = 0;
   PageController pageController = PageController();
+  //final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  // void _openDrawer() {
+  //   _scaffoldKey.currentState!.openDrawer();
+  // }
 
   List screens = [
     HomePage(),
@@ -31,12 +36,19 @@ class _HomeScreenState extends State<HomeScreen> {
       automaticallyImplyLeading: false,
       title: Padding(
         padding: EdgeInsets.only(top: 4.h),
-        child: Text(
-          "Oncogems",
-          style: TextStyle(
-              fontSize: 24.5.sp,
-              fontWeight: FontWeight.w700,
-              color: Colors.white),
+        child: Row(
+          children: [
+            // IconButton(icon: Icon(Icons.menu),onPressed: (){
+            //   _openDrawer();
+            // },),
+            Text(
+              "Oncogems",
+              style: TextStyle(
+                  fontSize: 24.5.sp,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white),
+            ),
+          ],
         ),
       ),
       actions: [
@@ -46,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 
               );
             },
-            icon: Icon(Icons.menu)),
+            icon: Icon(Icons.menu,size: 28,)),
         // Stack(
         //   children: [
         //     Padding(
@@ -98,6 +110,41 @@ class _HomeScreenState extends State<HomeScreen> {
         return Scaffold(
           appBar: PreferredSize(
               preferredSize: Size.fromHeight(63.h), child: buildAppBar()),
+              // Drawer
+          drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text(
+                'Drawer Header',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text('Item 1'),
+              onTap: () {
+                // Add functionality for the first drawer item here
+                Navigator.pop(context); // Close the drawer
+              },
+            ),
+            ListTile(
+              title: Text('Item 2'),
+              onTap: () {
+                // Add functionality for the second drawer item here
+                Navigator.pop(context); // Close the drawer
+              },
+            ),
+            // Add more ListTile widgets for additional items
+          ],
+        ),
+      ),
           body: PageView.builder(
               itemCount: 3,
               controller: pageController,
@@ -134,8 +181,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       iconColor: Colors.white70,
                     ),
                     GButton(
-                      icon: Icons.card_giftcard,
-                      text: 'Achievement',
+                      icon: Icons.book,
+                      text: 'Booking',
                       iconActiveColor: Colors.white,
                       iconColor: Colors.white70,
                     ),
@@ -162,3 +209,49 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+
+// import 'package:flutter/material.dart';
+
+// void main() {
+//   runApp(MyApp());
+// }
+
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: MyHomePage(),
+//     );
+//   }
+// }
+
+// class MyHomePage extends StatefulWidget {
+//   @override
+//   _MyHomePageState createState() => _MyHomePageState();
+// }
+
+// class _MyHomePageState extends State<MyHomePage> {
+//   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+//   void _openDrawer() {
+//     _scaffoldKey.currentState!.openDrawer();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       key: _scaffoldKey,
+//       appBar: AppBar(
+//         title: Text('Drawer Example'),
+//       ),
+//       body: Center(
+//         child: ElevatedButton(
+//           onPressed: _openDrawer,
+//           child: Text('Open Drawer'),
+//         ),
+//       ),
+
+//     );
+//   }
+// }

@@ -1,9 +1,9 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_interpolation_to_compose_strings
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_interpolation_to_compose_strings, sized_box_for_whitespace, use_build_context_synchronously, unused_local_variable
 
 import 'dart:io';
 
 import 'package:achiever/screens/authentications/signupPage.dart';
-import 'package:achiever/screens/uploadimage.dart';
+
 import 'package:achiever/services/storage_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -27,6 +27,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final user = FirebaseAuth.instance.currentUser;
   bool themeMode = false;
   final updateName = TextEditingController();
+  final updateBio = TextEditingController();
   bool loading = false;
   File? _image;
   final picker = ImagePicker();
@@ -128,6 +129,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     String name = "User";
+    String bio = "Loreum Ipsum!";
     UserLoginResponseEntity userProfile = UserLoginResponseEntity();
     return Scaffold(
       body: Stack(
@@ -243,89 +245,162 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               style: TextStyle(
                                   color: Colors.black, fontSize: 19.5.sp),
                             ))),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    Column(
+                    // SizedBox(height: 5.h,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      //crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 10.0, vertical: 5),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(15),
-                            child: ListTile(
-                              leading: Icon(
-                                Icons.dark_mode,
-                              ),
-                              selected: true,
-                              tileColor: Colors.grey.shade400,
-                              title: Text("Dark Mode"),
-                              trailing: Switch(
-                                  activeColor: Color(0xff50a387),
-                                  value: themeMode,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      if (value == true) {
-                                        Get.changeTheme(ThemeData.dark());
-                                      }
-                                      Get.changeTheme(ThemeData.light());
-                                    });
-                                  }),
-                              onTap: () {
-                                setState(() {
-                                  themeMode = !themeMode;
-                                });
-                              },
+                        Center(
+                          child: SizedBox(
+                            width: 280.w,
+                            child: Text(
+                              StorageService().getString("bio").isEmpty
+                                      ? "Loreum Ipsum!"
+                                      : StorageService().getString("bio"),
+                              style: TextStyle(color: Colors.black54),
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 10.0, vertical: 5),
-                          child: ListTile(
-                            // selected: true,
-                            leading: Icon(
-                              Icons.notifications,
+                        IconButton(
+                            onPressed: () {
+                              Get.defaultDialog(
+                                title: "",
+                                titlePadding: EdgeInsets.only(top: 20),
+                                contentPadding: EdgeInsets.all(20),
+                                middleText:
+                                    "Are you sure want to update your bio ?", // middle text doesn't allow more than 3 lines of text therefore we use content.
+                                confirm: TextButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        bio = updateBio.text;
+                                        StorageService().setString("bio", bio);
+                                      });
+
+                                      Get.back();
+                                    },
+                                    child: Text("Confirm")),
+                                cancel: TextButton(
+                                    onPressed: () {
+                                      Get.back();
+                                    },
+                                    child: Text("Cancel")),
+                                content: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text("Update Your Bio"),
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 8.w, vertical: 8.h),
+                                      child: TextFormField(
+                                        controller: updateBio,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(),
+                                        ),
+                                        onChanged: (value) {
+                                          setState(() {
+                                            bio = value;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                            icon: Icon(Icons.edit,color: Color(0xff50a387),))
+                      ],
+                    ),
+                    // SizedBox(
+                    //   height: 0.h,
+                    // ),
+                    SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10.0, vertical: 5),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(15),
+                              child: ListTile(
+                                leading: Icon(
+                                  Icons.dark_mode,
+                                ),
+                                selected: true,
+                                tileColor: Colors.grey.shade400,
+                                title: Text("Dark Mode"),
+                                trailing: Switch(
+                                    activeColor: Color(0xff50a387),
+                                    value: themeMode,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        if (value == true) {
+                                          Get.changeTheme(ThemeData.dark());
+                                        }
+                                        Get.changeTheme(ThemeData.light());
+                                      });
+                                    }),
+                                onTap: () {
+                                  setState(() {
+                                    themeMode = !themeMode;
+                                  });
+                                },
+                              ),
                             ),
-                            // selectedTileColor: Colors.grey.shade400,
-                            tileColor: Colors.grey.shade400,
-                            title: Text("Notification"),
-                            trailing: Switch(
-                                activeColor: Color(0xff50a387),
-                                value: themeMode,
-                                onChanged: (value) {
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10.0, vertical: 5),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(15),
+                              child: ListTile(
+                                leading: Icon(
+                                  Icons.dark_mode,
+                                ),
+                                selected: true,
+                                tileColor: Colors.grey.shade400,
+                                title: Text("Notifications"),
+                                trailing: Switch(
+                                    activeColor: Color(0xff50a387),
+                                    value: themeMode,
+                                    onChanged: (value) {
+                                      // setState(() {
+                                      //   // if (value == true) {
+                                      //   //   Get.changeTheme(ThemeData.dark());
+                                      //   // }
+                                      //   // Get.changeTheme(ThemeData.light());
+                                      // });
+                                    }),
+                                onTap: () {
                                   setState(() {
                                     // themeMode = !themeMode;
                                   });
-                                }),
-                            onTap: () {
-                              setState(() {
-                                // themeMode = !themeMode;
-                              });
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 10.0, vertical: 5),
-                          child: ListTile(
-                            selected: true,
-                            leading: Icon(
-                              Icons.logout,
+                                },
+                              ),
                             ),
-                            tileColor: Colors.grey.shade400,
-                            title: Text("logout"),
-                            onTap: () async {
-                              await auth.signOut();
-                              await StorageService().remove("user_id");
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SignUp()));
-                            },
                           ),
-                        ),
-                      ],
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10.0, vertical: 5),
+                            child: ListTile(
+                              selected: true,
+                              leading: Icon(
+                                Icons.logout,
+                              ),
+                              tileColor: Colors.grey.shade400,
+                              title: Text("logout"),
+                              onTap: () async {
+                                await auth.signOut();
+                                await StorageService().remove("user_id");
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SignUp()));
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
                     )
                     // Expanded(
                     //   child: GridView.builder(
@@ -376,7 +451,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ? CircleAvatar(
                             radius: 60.r,
                             child: Image.network(
-                              profile.toString(), height: 140.h,width: 140.w,
+                              profile.toString(),
+                              height: 140.h,
+                              width: 140.w,
                               fit: BoxFit.cover,
                             ))
                         : Icon(Icons.person, size: 50),

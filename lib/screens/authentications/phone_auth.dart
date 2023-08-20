@@ -1,8 +1,9 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_interpolation_to_compose_strings
 
 import 'package:achiever/screens/authentications/verify_code_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class VerifyNumber extends StatefulWidget {
@@ -96,6 +97,10 @@ class _VerifyNumberState extends State<VerifyNumber> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 120.0),
               child: TextFormField(
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(10),
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
                 controller: phoneNumberController,
                 style: TextStyle(
                     color: Colors.black,
@@ -127,7 +132,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
                       check = true;
                     });
                     auth.verifyPhoneNumber(
-                      phoneNumber: phoneNumberController.text,
+                      phoneNumber: "+91"+ phoneNumberController.text,
                       verificationCompleted: (_) {},
                       verificationFailed: (e) {
                         Get.snackbar("Achiever", e.toString());

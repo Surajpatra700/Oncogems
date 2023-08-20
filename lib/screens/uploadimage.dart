@@ -1,6 +1,6 @@
 
 
-// ignore_for_file: prefer_interpolation_to_compose_strings
+// ignore_for_file: prefer_interpolation_to_compose_strings, avoid_print
 
 import 'dart:io';
 
