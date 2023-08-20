@@ -1,7 +1,8 @@
-import 'package:achiever/screens/plants_Screens/plantScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+
+import 'booking_Screens/bookingscreen.dart';
 
 class AchievementScreen extends StatefulWidget {
   const AchievementScreen({super.key});
@@ -27,7 +28,7 @@ class _AchievementScreenState extends State<AchievementScreen> {
           tileMode: TileMode.clamp
           ),
         ),
-        child: PlantScreen(),
+        child: BookingScreen(),
       ),
     );
   }

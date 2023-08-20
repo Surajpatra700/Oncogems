@@ -3,10 +3,10 @@ import 'package:achiever/screens/onboarding%20Screens/onboarding_home_screen.dar
 import 'package:achiever/screens/splash_screen/splashScreen.dart';
 import 'package:achiever/services/storage_services.dart';
 import 'package:camera/camera.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 // import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -31,6 +31,9 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  static FirebaseAnalyticsObserver observer =
+      FirebaseAnalyticsObserver(analytics: analytics);
 
   // This widget is the root of your application.
   @override
@@ -46,6 +49,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.green,
           ),
+          navigatorObservers: <NavigatorObserver>[observer],
           home: SplashScreen(),
         );
       },

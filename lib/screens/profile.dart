@@ -1,10 +1,12 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_interpolation_to_compose_strings, sized_box_for_whitespace, use_build_context_synchronously, unused_local_variable
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_interpolation_to_compose_strings, use_build_context_synchronously
 
 import 'dart:io';
 
 import 'package:achiever/screens/authentications/signupPage.dart';
+import 'package:achiever/screens/uploadimage.dart';
 
 import 'package:achiever/services/storage_services.dart';
+import 'package:achiever/services/toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +14,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-
-import '../services/toast.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -35,7 +35,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   firebase_storage.FirebaseStorage storage =
       firebase_storage.FirebaseStorage.instance;
   DatabaseReference databaseRef = FirebaseDatabase.instance.ref('Post');
-  final profile = StorageService().getString("profilePhoto");
+  String profile = StorageService().getString("profilePhoto");
 
   Future getImageGallery() async {
     final pickedFile =
@@ -255,8 +255,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             width: 280.w,
                             child: Text(
                               StorageService().getString("bio").isEmpty
-                                      ? "Loreum Ipsum!"
-                                      : StorageService().getString("bio"),
+                                  ? "Loreum Ipsum!"
+                                  : StorageService().getString("bio"),
                               style: TextStyle(color: Colors.black54),
                             ),
                           ),
@@ -308,7 +308,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                               );
                             },
-                            icon: Icon(Icons.edit,color: Color(0xff50a387),))
+                            icon: Icon(
+                              Icons.edit,
+                              color: Color(0xff50a387),
+                            ))
                       ],
                     ),
                     // SizedBox(
@@ -443,7 +446,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Stack(
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(60),
+                    borderRadius: BorderRadius.circular(60.r),
 
                     // backgroundColor: Colors.grey.shade300,
                     // radius: 60.r,
@@ -467,6 +470,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: Center(
                           child: IconButton(
                               onPressed: () {
+                                setState(() {
+                                  loading = true;
+                                });
                                 getImageGallery().then((value) {
                                   firebase_storage.Reference ref =
                                       firebase_storage.FirebaseStorage.instance
@@ -477,44 +483,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       ref.putFile(_image!.absolute);
 
                                   Future.value(uploadTask).then((value) async {
-                                    var newUrl = await ref.getDownloadURL();
-                                    setState(() {
-                                      StorageService()
-                                          .setString("profilePhoto", newUrl);
+                                    var newUrl =
+                                        ref.getDownloadURL().then((value) {
+                                      setState(() {
+                                        StorageService()
+                                            .setString("profilePhoto", value);
+                                        loading = false;
+                                        Utils().toastMessage(
+                                            "Succesfully Updated", true);
+                                      });
+                                    }).onError((error, stackTrace) {
+                                      setState(() {
+                                        loading = false;
+                                      });
+                                      Utils().toastMessage(
+                                          error.toString(), false);
                                     });
+                                  });
 
-                                    // databaseRef
-                                    //     .child(
-                                    //         StorageService().getString("user_id"))
-                                    //     .set({
-                                    //   'id': StorageService().getString("user_id"),
-                                    //   'image': newUrl.toString()
-                                    // }).then((value) {
-                                    //   setState(() {
-                                    //     loading = false;
-                                    //   });
-                                    //   Utils().toastMessage(
-                                    //       'Updated Succesfully', true);
-                                    // }).onError((error, stackTrace) {
-                                    //   print(error.toString());
-                                    //   setState(() {
-                                    //     loading = false;
-                                    //   });
-                                    // });
-                                    Utils().toastMessage(
-                                        'Updated Succesfully', true);
-                                  }).onError((error, stackTrace) {
-                                    Utils()
-                                        .toastMessage(error.toString(), false);
-                                    setState(() {
-                                      loading = false;
-                                    });
-                                  });
-                                }).onError((error, stackTrace) {
-                                  Utils().toastMessage(error.toString(), false);
-                                  setState(() {
-                                    loading = false;
-                                  });
+                                  // Navigator.push(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //         builder: (context) =>
+                                  //             UploadImageScreen()));
                                 });
                               },
                               icon: Icon(

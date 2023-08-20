@@ -166,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5),
                 child: GNav(
                   curve: Curves.fastOutSlowIn,
-                  duration: Duration(milliseconds: 350),
+                  duration: Duration(milliseconds: 250),
                   backgroundColor: Color(0xff50a387),
                   tabBackgroundColor: Color.fromARGB(255, 72, 201, 76),
                   padding: EdgeInsets.all(16),
@@ -182,7 +182,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     GButton(
                       icon: Icons.book,
-                      text: 'Booking',
+                      text: 'Consultancy',
                       iconActiveColor: Colors.white,
                       iconColor: Colors.white70,
                     ),
