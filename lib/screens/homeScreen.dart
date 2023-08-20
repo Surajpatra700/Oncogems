@@ -134,8 +134,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       iconColor: Colors.white70,
                     ),
                     GButton(
-                      icon: Icons.card_giftcard,
-                      text: 'Achievement',
+                      icon: Icons.book_online_outlined,
+                      text: 'Booking',
                       iconActiveColor: Colors.white,
                       iconColor: Colors.white70,
                     ),

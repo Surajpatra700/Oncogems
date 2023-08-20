@@ -54,6 +54,7 @@ dependencies:
   firebase_database: ^10.2.3
   lottie: ^2.3.2
   firebase_analytics: ^10.4.5
+  url_launcher: ^6.1.10
 
 dev_dependencies:
   flutter_test:
