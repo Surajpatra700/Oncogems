@@ -31,7 +31,7 @@ Video Link : [*YouTube*](https://youtu.be/XsA3mhvTNnw)
 - Interactive symptom checker that allows users to input and track potential symptoms associated with liver and oral cancer.
 
 2. AI-Powered Image Analysis:
--Advanced image recognition technology to analyze oral cavity photos for potential signs of oral cancer, such as lesions or discolorations.
+- Advanced image recognition technology to analyze oral cavity photos for potential signs of oral cancer, such as lesions or discolorations.
 
 3. Emergency Contact Integration:
 - Integration with emergency contact information in case users need immediate assistance or have concerns.
