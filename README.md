@@ -23,15 +23,18 @@ Download APK : [*Click here*](https://drive.google.com/file/d/1FY14LbJE20K4AsAJy
 
 ### :link: Youtube Link
 
-[*YouTube*](https://youtu.be/XsA3mhvTNnw)
+Video Link : [*YouTube*](https://youtu.be/XsA3mhvTNnw)
 
 ## :key: Core Features
 
 1. Symptom Checker:
-An interactive symptom checker that allows users to input and track potential symptoms associated with liver and oral cancer.
+- Interactive symptom checker that allows users to input and track potential symptoms associated with liver and oral cancer.
 
 2. AI-Powered Image Analysis:
-Advanced image recognition technology to analyze oral cavity photos for potential signs of oral cancer, such as lesions or discolorations.
+-Advanced image recognition technology to analyze oral cavity photos for potential signs of oral cancer, such as lesions or discolorations.
 
 3. Emergency Contact Integration:
 - Integration with emergency contact information in case users need immediate assistance or have concerns.
+
+4. Integration of Other Side Health Measurement Sections
+- Calculates Side Health Measurement Sections like Pulse rate, Blood Pressure Rate, WB Count & Sugar Level based upon user's certain inputted data. 
