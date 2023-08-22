@@ -57,6 +57,7 @@ dependencies:
   firebase_analytics: ^10.2.1
   tflite: ^1.1.2
   url_launcher: ^6.1.10
+  encrypt: ^5.0.1
 
 dev_dependencies:
   flutter_test:

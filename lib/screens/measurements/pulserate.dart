@@ -1,87 +1,10 @@
+
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-// class PulseRateScreen extends StatefulWidget {
-//   @override
-//   _PulseRateScreenState createState() => _PulseRateScreenState();
-// }
-
-// class _PulseRateScreenState extends State<PulseRateScreen> {
-  // double pulseRate = 70; // Initial simulated pulse rate
-  // bool measuring = false;
-  // late Timer timer;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   // Start simulating pulse rate measurement
-  //   startMeasuring();
-  // }
-
-  // @override
-  // void dispose() {
-  //   // Stop the timer when the screen is disposed
-  //   timer.cancel();
-  //   super.dispose();
-  // }
-
-  // void startMeasuring() {
-  //   // Simulate pulse rate measurement by generating random values
-  //   measuring = true;
-  //   timer = Timer.periodic(Duration(seconds: 2), (Timer t) {
-  //     setState(() {
-  //       pulseRate = Random().nextInt(30) + 60; // Simulated pulse rate between 60 and 90 bpm
-  //     });
-  //   });
-  // }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Pulse Rate Measurement'),
-//       ),
-//       body: Center(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: <Widget>[
-            // Text(
-            //   'Pulse Rate:',
-            //   style: TextStyle(fontSize: 24),
-            // ),
-            // Text(
-            //   measuring ? pulseRate.toStringAsFixed(0) + ' bpm' : 'Measuring...',
-            //   style: TextStyle(fontSize: 36),
-            // ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-
-// import 'package:flutter/material.dart';
-
-// void main() {
-//   runApp(MyApp());
-// }
-
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Pulse Rate Tracker',
-//       theme: ThemeData(
-//         primarySwatch: Colors.blue,
-//       ),
-//       home: PulseRateScreen(),
-//     );
-//   }
-// }
 
 class PulseRateScreen extends StatefulWidget {
   @override
@@ -90,30 +13,30 @@ class PulseRateScreen extends StatefulWidget {
 
 class _PulseRateScreenState extends State<PulseRateScreen> {
   TextEditingController pulseRateController = TextEditingController();
-    double pulseRate = 70; // Initial simulated pulse rate
+    double pulseRate = 70; 
   bool measuring = false;
   late Timer timer;
 
   @override
   void initState() {
     super.initState();
-    // Start simulating pulse rate measurement
+    
     startMeasuring();
   }
 
   @override
   void dispose() {
-    // Stop the timer when the screen is disposed
+    
     timer.cancel();
     super.dispose();
   }
 
   void startMeasuring() {
-    // Simulate pulse rate measurement by generating random values
+    
     measuring = true;
     timer = Timer.periodic(Duration(seconds: 2), (Timer t) {
       setState(() {
-        pulseRate = Random().nextInt(30) + 60; // Simulated pulse rate between 60 and 90 bpm
+        pulseRate = Random().nextInt(30) + 60; 
       });
     });
   }
@@ -121,10 +44,10 @@ class _PulseRateScreenState extends State<PulseRateScreen> {
   String result = '';
 
   void analyzePulseRate() {
-    // Retrieve user input for pulse rate
+    
     final pulseRate = int.tryParse(pulseRateController.text);
 
-    // Check if the value is valid
+    
     if (pulseRate != null) {
       setState(() {
         if (pulseRate < 60) {

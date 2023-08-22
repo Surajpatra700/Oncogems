@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, library_private_types_in_public_api, use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 
 class WBCCountScreen extends StatefulWidget {
@@ -13,10 +15,10 @@ class _WBCCountScreenState extends State<WBCCountScreen> {
   double wbcCount = 0.0;
 
   void calculateWBCCount() {
-    // You can implement a formula here to estimate WBC count based on input data.
-    // This is a simplified example; a real calculation would be more complex.
+    
+    
     setState(() {
-      wbcCount = 6.0; // Sample calculated WBC count.
+      wbcCount = 6.0; 
     });
   }
 

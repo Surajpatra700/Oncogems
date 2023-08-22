@@ -1,12 +1,10 @@
 // ignore_for_file: prefer_const_constructors, unnecessary_const
 
 import 'package:achiever/screens/Form%20Page/formpage.dart';
-import 'package:achiever/screens/bloodPressure.dart';
-import 'package:achiever/screens/doctor_screens/doctor_form.dart';
-import 'package:achiever/screens/pulserate.dart';
-import 'package:achiever/screens/sugarlevel.dart';
-import 'package:achiever/screens/testing.dart';
-import 'package:achiever/screens/wbcCount.dart';
+import 'package:achiever/screens/measurements/bloodPressure.dart';
+import 'package:achiever/screens/measurements/pulserate.dart';
+import 'package:achiever/screens/measurements/sugarlevel.dart';
+import 'package:achiever/screens/measurements/wbcCount.dart';
 import 'package:achiever/services/oralCancer_prediction/oralPrediction.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -124,67 +122,6 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
 
-          // SizedBox(
-          //     height: 210.h,
-          //     child: ListView.builder(
-          //         itemCount: 4,
-          //         scrollDirection: Axis.horizontal,
-          //         itemBuilder: (context, index) {
-          //           return InkWell(
-          //             onTap: () {},
-          //             child: Container(
-          //               margin: EdgeInsets.all(15.00.sp),
-          //               padding: EdgeInsets.symmetric(vertical: 12.sp),
-          //               decoration: BoxDecoration(
-          //                   gradient: LinearGradient(
-          //                     colors: [Colors.green, Colors.white],
-          //                     begin: Alignment.bottomLeft,
-          //                     end: Alignment.topRight,
-          //                   ),
-          //                   borderRadius: BorderRadius.circular(10.r),
-          //                   boxShadow: [
-          //                     BoxShadow(
-          //                       color: Colors.black26,
-          //                       blurRadius: 4.sp,
-          //                       spreadRadius: 2.r,
-          //                     ),
-          //                   ]),
-          //               child: SizedBox(
-          //                 width: MediaQuery.of(context).size.width / 1.18,
-          //                 child: Column(
-          //                   children: [
-          //                     ListTile(
-          //                       leading: CircleAvatar(
-          //                         radius: 40.sp,
-          //                         backgroundImage:
-          //                             AssetImage("assets/images/oncogems.jpg"),
-          //                       ),
-          //                       title: Text(
-          //                         "Dr. Doctor",
-          //                         style: TextStyle(
-          //                           fontSize: 28.sp,
-          //                           fontWeight: FontWeight.bold,
-          //                         ),
-          //                       ),
-          //                     ),
-          //                     SizedBox(
-          //                       height: 30.h,
-          //                     ),
-          //                     Padding(
-          //                       padding:
-          //                           EdgeInsets.symmetric(horizontal: 10.sp),
-          //                       child: Text(
-          //                         maxLines: 2,
-          //                         "A very great and professional Doctor.Many many thanks to the doctor",
-          //                         style: TextStyle(color: Colors.black),
-          //                       ),
-          //                     )
-          //                   ],
-          //                 ),
-          //               ),
-          //             ),
-          //           );
-          //         })),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
