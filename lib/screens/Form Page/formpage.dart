@@ -1,11 +1,9 @@
 import 'dart:convert';
-
-import 'package:achiever/screens/homeScreen.dart';
+import 'package:achiever/services/cryptography/encrypt.dart';
 import 'package:achiever/services/liver_prediction%20ML%20Model/predict_service.dart';
 import 'package:achiever/services/liver_prediction%20ML%20Model/resultScreen.dart';
 import 'package:achiever/services/storage_services.dart';
 import 'package:achiever/services/toast.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -37,7 +35,7 @@ class FormState extends State<formpage> {
   final mdm_survivalController = TextEditingController();
   final sizeController = TextEditingController();
   final PredictionService predictionService = PredictionService();
-  String submitChange = StorageService().getString("ButtonName") == ""
+  String submitChange = StorageService().getString("ButtonName").isEmpty
       ? "Submit"
       : StorageService().getString("ButtonName");
 
@@ -451,6 +449,7 @@ class FormState extends State<formpage> {
                         pController.text != null &&
                         prevController.text != null) {
                       Get.snackbar("Oncogems", "Data is processing");
+                      print("Application Id: ${id}");
                       setState(() {
                         loading = true;
                       });
@@ -485,15 +484,23 @@ class FormState extends State<formpage> {
                       if (submitChange == 'Submit') {
                         firestore.doc(id).set({
                           "id": id,
-                          "bleed": bleedController.text,
-                          "cirrhosis": cirrController.text,
-                          "size": sizeController.text,
-                          "HCC_TNM_Stage": hController.text,
-                          "ICC_TNM_Stage": iController.text,
-                          "Survival_fromMDM": mdm_survivalController.text,
-                          "Surveillance_effectiveness": sController.text,
+                          "bleed":
+                              bleedController.text,
+                          "cirrhosis":
+                              cirrController.text,
+                          "size":
+                              sizeController.text,
+                          "HCC_TNM_Stage":
+                              hController.text,
+                          "ICC_TNM_Stage":
+                              iController.text,
+                          "Survival_fromMDM": 
+                              mdm_survivalController.text,
+                          "Surveillance_effectiveness":
+                              sController.text,
                           "PS": pController.text,
-                          "Prev_known_cirrhosis": prevController.text,
+                          "Prev_known_cirrhosis":
+                              prevController.text,
                         }).then((value) {
                           setState(() {
                             loading = false;
@@ -530,15 +537,23 @@ class FormState extends State<formpage> {
                       } else if (submitChange == 'Update') {
                         firestore.doc(id).update({
                           "id": id,
-                          "bleed": bleedController.text,
-                          "cirrhosis": cirrController.text,
-                          "size": sizeController.text,
-                          "HCC_TNM_Stage": hController.text,
-                          "ICC_TNM_Stage": iController.text,
-                          "Survival_fromMDM": mdm_survivalController.text,
-                          "Surveillance_effectiveness": sController.text,
+                          "bleed":
+                              bleedController.text,
+                          "cirrhosis":
+                              cirrController.text,
+                          "size":
+                              sizeController.text,
+                          "HCC_TNM_Stage":
+                              hController.text,
+                          "ICC_TNM_Stage":
+                              iController.text,
+                          "Survival_fromMDM": 
+                              mdm_survivalController.text,
+                          "Surveillance_effectiveness":
+                              sController.text,
                           "PS": pController.text,
-                          "Prev_known_cirrhosis": prevController.text,
+                          "Prev_known_cirrhosis":
+                              prevController.text
                         }).then((value) {
                           setState(() {
                             loading = false;

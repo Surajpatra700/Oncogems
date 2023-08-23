@@ -5,12 +5,12 @@ class EncryptDecrypt {
   static final iv = encrypt.IV.fromLength(16);
   static final encrypter = encrypt.Encrypter(encrypt.AES(key));
 
-  static encryptFernet(text) {
+  static encryptData(text) {
     final encrypted = encrypter.encrypt(text, iv: iv);
     return encrypted;
   }
 
-  static decryptFernet(text) {
+  static decryptData(text) {
     return encrypter.decrypt(text,iv: iv);
   }
 }

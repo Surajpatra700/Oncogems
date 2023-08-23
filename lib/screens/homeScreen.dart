@@ -3,9 +3,14 @@
 import 'package:achiever/screens/achievement.dart';
 import 'package:achiever/screens/homePage.dart';
 import 'package:achiever/screens/profile.dart';
+import 'package:achiever/services/storage_services.dart';
+import 'package:achiever/services/toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:local_auth/local_auth.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,6 +22,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _index = 0;
   PageController pageController = PageController();
+  bool authenticatedUser = false;
   //final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   // void _openDrawer() {
@@ -54,11 +60,12 @@ class _HomeScreenState extends State<HomeScreen> {
       actions: [
         IconButton(
             onPressed: () {
-              Drawer(
-                
-              );
+              _authenticate();
             },
-            icon: Icon(Icons.menu,size: 28,)),
+            icon: Icon(
+              Icons.menu,
+              size: 28,
+            )),
         // Stack(
         //   children: [
         //     Padding(
@@ -100,6 +107,102 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  // Future<void> _getAvailableBiometrics() async {
+  //   List<BiometricType> availableBiometrics =
+  //       await auth.getAvailableBiometrics();
+  //   print("List of availableBiometrics: $availableBiometrics");
+  //   if (!mounted) {
+  //     return;
+  //   }
+  // }
+
+  // Future<void> _authenticate() async {
+  //   try {
+  //     bool authenticated = await auth.authenticate(
+  //         localizedReason: "Authenticate",
+  //         options: const AuthenticationOptions(
+  //           stickyAuth: true,
+  //           biometricOnly: true,
+  //         ));
+  //     print("Authenticated: $authenticated");
+  //   } on PlatformException catch (e) {
+  //     Utils().toastMessage(e.toString(), false);
+  //   }
+  // }
+
+  Future<void> _authenticate() async {
+    bool authenticated = false;
+    try {
+      setState(() {
+        _isAuthenticating = true;
+        _authorized = 'Authenticating';
+      });
+      authenticated = await auth.authenticate(
+        localizedReason: 'Unlock Oncogems',
+        options: const AuthenticationOptions(
+          stickyAuth: true,
+        ),
+      );
+      if (!authenticated) {
+        // Authentication successful, set a flag in SharedPreferences
+        Get.defaultDialog(
+          backgroundColor: Colors.grey.shade200,
+          title: "Oncogems", titleStyle: TextStyle(fontWeight: FontWeight.w700),
+          titlePadding: EdgeInsets.only(top: 20),
+          contentPadding: EdgeInsets.all(20),
+          middleText:
+              "Please Enter your FingerPrint or Pattern Lock !", // middle text doesn't allow more than 3 lines of text therefore we use content.
+          confirm: ElevatedButton(
+              style:
+                  ElevatedButton.styleFrom(backgroundColor: Color(0xff50a387)),
+              onPressed: () {
+                authenticatedUser? Get.back() : _authenticate();
+              },
+              child: Text("Ok")),
+        );
+      } else {
+        setState(() {
+          authenticatedUser = true;
+        });
+      }
+      setState(() {
+        _isAuthenticating = false;
+      });
+    } on PlatformException catch (e) {
+      print(e);
+      setState(() {
+        _isAuthenticating = false;
+        _authorized = 'Error - ${e.message}';
+      });
+      return;
+    }
+    if (!mounted) {
+      return;
+    }
+
+    setState(
+        () => _authorized = authenticated ? 'Authorized' : 'Not Authorized');
+  }
+
+  late final LocalAuthentication auth;
+  bool _supportState = false;
+  String _authorized = 'Not Authorized';
+  bool _isAuthenticating = false;
+
+  @override
+  void initState() {
+    super.initState();
+    auth = LocalAuthentication();
+    auth.isDeviceSupported().then((bool isSupported) {
+      setState(() {
+        _supportState = isSupported;
+      });
+      _authenticate();
+    }).onError((error, stackTrace) {
+      Utils().toastMessage(error.toString(), false);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -110,41 +213,41 @@ class _HomeScreenState extends State<HomeScreen> {
         return Scaffold(
           appBar: PreferredSize(
               preferredSize: Size.fromHeight(63.h), child: buildAppBar()),
-              // Drawer
+          // Drawer
           drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text(
-                'Drawer Header',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                  ),
+                  child: Text(
+                    'Drawer Header',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                    ),
+                  ),
                 ),
-              ),
+                ListTile(
+                  title: Text('Item 1'),
+                  onTap: () {
+                    // Add functionality for the first drawer item here
+                    Navigator.pop(context); // Close the drawer
+                  },
+                ),
+                ListTile(
+                  title: Text('Item 2'),
+                  onTap: () {
+                    // Add functionality for the second drawer item here
+                    Navigator.pop(context); // Close the drawer
+                  },
+                ),
+                // Add more ListTile widgets for additional items
+              ],
             ),
-            ListTile(
-              title: Text('Item 1'),
-              onTap: () {
-                // Add functionality for the first drawer item here
-                Navigator.pop(context); // Close the drawer
-              },
-            ),
-            ListTile(
-              title: Text('Item 2'),
-              onTap: () {
-                // Add functionality for the second drawer item here
-                Navigator.pop(context); // Close the drawer
-              },
-            ),
-            // Add more ListTile widgets for additional items
-          ],
-        ),
-      ),
+          ),
           body: PageView.builder(
               itemCount: 3,
               controller: pageController,
@@ -198,6 +301,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     setState(() {
                       _index = index;
                     });
+                    if (index == 1) {
+                      _authenticate();
+                    }
+
                     pageController.jumpToPage(index);
                   },
                 ),
