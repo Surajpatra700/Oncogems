@@ -459,7 +459,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               width: 140.w,
                               fit: BoxFit.cover,
                             ))
-                        : Icon(Icons.person, size: 50),
+                        : CircleAvatar(
+                          radius: 60.r,
+                          child: Center(child: Icon(Icons.person, size: 50,color: Colors.white,))),
                   ),
                   Positioned(
                       bottom: 5.h,

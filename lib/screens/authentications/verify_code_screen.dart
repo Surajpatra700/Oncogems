@@ -117,7 +117,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  width: 2, color: Colors.deepPurple)),
+                                  width: 2, color: Colors.green)),
                         ),
                         style: Theme.of(context).textTheme.titleLarge,
                         textAlign: TextAlign.center,
@@ -142,7 +142,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  width: 2, color: Colors.deepPurple)),
+                                  width: 2, color: Colors.green)),
                         ),
                         style: Theme.of(context).textTheme.titleLarge,
                         textAlign: TextAlign.center,
@@ -167,7 +167,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  width: 2, color: Colors.deepPurple)),
+                                  width: 2, color: Colors.green)),
                         ),
                         style: Theme.of(context).textTheme.titleLarge,
                         textAlign: TextAlign.center,
@@ -192,7 +192,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  width: 2, color: Colors.deepPurple)),
+                                  width: 2, color: Colors.green)),
                         ),
                         style: Theme.of(context).textTheme.titleLarge,
                         textAlign: TextAlign.center,
@@ -217,7 +217,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  width: 2, color: Colors.deepPurple)),
+                                  width: 2, color: Colors.green)),
                         ),
                         style: Theme.of(context).textTheme.titleLarge,
                         textAlign: TextAlign.center,
@@ -242,7 +242,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  width: 2, color: Colors.deepPurple)),
+                                  width: 2, color: Colors.green)),
                         ),
                         style: Theme.of(context).textTheme.titleLarge,
                         textAlign: TextAlign.center,
@@ -286,7 +286,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                     });
                   },
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.deepPurple,
+                      backgroundColor: Color(0xff50a387),
                       minimumSize: Size(double.infinity, 53)),
                   child: Text(
                     "Submit",

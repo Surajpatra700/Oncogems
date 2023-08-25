@@ -3,7 +3,6 @@
 import 'package:achiever/screens/achievement.dart';
 import 'package:achiever/screens/homePage.dart';
 import 'package:achiever/screens/profile.dart';
-import 'package:achiever/services/storage_services.dart';
 import 'package:achiever/services/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -60,75 +59,15 @@ class _HomeScreenState extends State<HomeScreen> {
       actions: [
         IconButton(
             onPressed: () {
-              _authenticate();
+              
             },
             icon: Icon(
               Icons.menu,
               size: 28,
             )),
-        // Stack(
-        //   children: [
-        //     Padding(
-        //       padding: EdgeInsets.only(right: 8.w, top: 8.h),
-        //       child: InkWell(
-        //         onTap: () {},
-        //         child: CircleAvatar(
-        //           radius: 23,
-        //           backgroundColor: Colors.white,
-        //           child: Container(
-        //               margin: EdgeInsets.all(3.2),
-        //               child: Image.network(
-        //                 "https://cdn-icons-png.flaticon.com/512/490/490091.png",
-        //                 fit: BoxFit.contain,
-        //               )),
-        //         ),
-        //       ),
-        //     ),
-        //     Positioned(
-        //       bottom: 0.5.h,
-        //       right: 2.w,
-        //       child: CircleAvatar(
-        //         radius: 10,
-        //         backgroundColor: Colors.grey.shade400,
-        //         child: Center(
-        //           child: Text(
-        //             "3",
-        //             style: TextStyle(
-        //                 fontSize: 14.sp,
-        //                 fontWeight: FontWeight.w600,
-        //                 color: Color.fromARGB(255, 6, 104, 10)),
-        //           ),
-        //         ),
-        //       ),
-        //     ),
-        //   ],
-        // ),
       ],
     );
   }
-
-  // Future<void> _getAvailableBiometrics() async {
-  //   List<BiometricType> availableBiometrics =
-  //       await auth.getAvailableBiometrics();
-  //   print("List of availableBiometrics: $availableBiometrics");
-  //   if (!mounted) {
-  //     return;
-  //   }
-  // }
-
-  // Future<void> _authenticate() async {
-  //   try {
-  //     bool authenticated = await auth.authenticate(
-  //         localizedReason: "Authenticate",
-  //         options: const AuthenticationOptions(
-  //           stickyAuth: true,
-  //           biometricOnly: true,
-  //         ));
-  //     print("Authenticated: $authenticated");
-  //   } on PlatformException catch (e) {
-  //     Utils().toastMessage(e.toString(), false);
-  //   }
-  // }
 
   Future<void> _authenticate() async {
     bool authenticated = false;
@@ -301,10 +240,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     setState(() {
                       _index = index;
                     });
-                    if (index == 1) {
-                      _authenticate();
-                    }
-
                     pageController.jumpToPage(index);
                   },
                 ),

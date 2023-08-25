@@ -5,6 +5,7 @@ import 'package:achiever/screens/measurements/bloodPressure.dart';
 import 'package:achiever/screens/measurements/pulserate.dart';
 import 'package:achiever/screens/measurements/sugarlevel.dart';
 import 'package:achiever/screens/measurements/wbcCount.dart';
+import 'package:achiever/services/notifications/notifications.dart';
 import 'package:achiever/services/oralCancer_prediction/oralPrediction.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -85,7 +86,9 @@ class _HomePageState extends State<HomePage> {
                   Stack(
                     children: [
                       IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            NotificationService();
+                          },
                           icon: Icon(
                             Icons.notifications,
                             size: 28,
@@ -109,7 +112,6 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-
           SizedBox(
             height: 300.h,
             child: ScrollSnapList(
@@ -121,7 +123,6 @@ class _HomePageState extends State<HomePage> {
               scrollDirection: Axis.horizontal,
             ),
           ),
-
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -244,17 +245,25 @@ class _HomePageState extends State<HomePage> {
               return InkWell(
                 onTap: () {
                   if (index == 0) {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => PulseRateScreen()));
-                  }else if(index == 1){
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => WBCCountScreen()));
-                  }else if(index == 2){
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => BloodPressureScreen()));
-                  }else if(index == 3){
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => BloodSugarScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PulseRateScreen()));
+                  } else if (index == 1) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => WBCCountScreen()));
+                  } else if (index == 2) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BloodPressureScreen()));
+                  } else if (index == 3) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BloodSugarScreen()));
                   }
                 },
                 child: Container(

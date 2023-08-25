@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:achiever/screens/authentications/forgetpassword.dart';
 import 'package:achiever/screens/authentications/signupPage.dart';
 import 'package:achiever/screens/homeScreen.dart';
