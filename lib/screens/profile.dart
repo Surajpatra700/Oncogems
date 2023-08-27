@@ -253,11 +253,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Center(
                           child: SizedBox(
                             width: 280.w,
-                            child: Text(
-                              StorageService().getString("bio").isEmpty
-                                  ? "Loreum Ipsum!"
-                                  : StorageService().getString("bio"),
-                              style: TextStyle(color: Colors.black54),
+                            child: Center(
+                              child: Text(
+                                StorageService().getString("bio").isEmpty
+                                    ? "Loreum Ipsum!"
+                                    : StorageService().getString("bio"),
+                                style: TextStyle(color: Colors.black54),
+                              ),
                             ),
                           ),
                         ),
@@ -395,6 +397,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               onTap: () async {
                                 await auth.signOut();
                                 await StorageService().remove("user_id");
+                                await StorageService().remove("user_phone_id");
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -460,8 +463,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               fit: BoxFit.cover,
                             ))
                         : CircleAvatar(
-                          radius: 60.r,
-                          child: Center(child: Icon(Icons.person, size: 50,color: Colors.white,))),
+                            radius: 60.r,
+                            child: Center(
+                                child: Icon(
+                              Icons.person,
+                              size: 50,
+                              color: Colors.white,
+                            ))),
                   ),
                   Positioned(
                       bottom: 5.h,

@@ -3,6 +3,7 @@
 import 'package:achiever/screens/authentications/forgetpassword.dart';
 import 'package:achiever/screens/authentications/signupPage.dart';
 import 'package:achiever/screens/homeScreen.dart';
+import 'package:achiever/services/storage_services.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
@@ -219,10 +220,12 @@ class _LoginState extends State<Login> {
                               .signInWithEmailAndPassword(
                                   email: emailController.text,
                                   password: passwordController.text)
-                              .then((_) {
+                              .then((value) {
                             successTrigger?.fire();
                             Get.snackbar("Achiever", "Welcome to Achiever",
                                 colorText: const Color(0xff50a387));
+                            StorageService()
+                          .setString("user_id", value.user!.uid);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(

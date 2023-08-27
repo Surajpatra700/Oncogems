@@ -23,6 +23,7 @@ class _confirmationpageState extends State<confirmationpage> {
             itemBuilder: (context, index) {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                // crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Lottie.asset(
 
@@ -35,9 +36,12 @@ class _confirmationpageState extends State<confirmationpage> {
                   SizedBox(
                     height: 25.h,
                   ),
-                  Text(
-                     "Your Booking has been Confirmed",
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                       "Your Booking has been Confirmed",
+                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold,color: Color(0xff50a387)),
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 20.w, right: 20, top: 15.h),

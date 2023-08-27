@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:achiever/screens/booking_Screens/confirmationpage.dart';
 import 'package:achiever/services/liver_prediction%20ML%20Model/predict_service.dart';
 import 'package:achiever/services/storage_services.dart';
@@ -17,6 +19,7 @@ class bookingpage extends StatefulWidget {
 
 class bookingState extends State<bookingpage> {
   final id = StorageService().getString("user_id");
+  final phone_id = StorageService().getString("user_phone_id");
   bool loading = false;
 
   final firestore = FirebaseFirestore.instance.collection("doctorbooking");
@@ -29,14 +32,14 @@ class bookingState extends State<bookingpage> {
   final timeController = TextEditingController();
   final dateController = TextEditingController();
 
-  final PredictionService predictionService = PredictionService();
-  String submitChange = StorageService().getString("ButtonName").isEmpty
+  // final PredictionService predictionService = PredictionService();
+  String submitChange = StorageService().getString("Buttondata").isEmpty
       ? "Submit"
-      : StorageService().getString("ButtonName");
+      : StorageService().getString("Buttondata");
 
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> predictionResult = {};
+    //Map<String, dynamic> predictionResult = {};
     return Scaffold(
         backgroundColor: Colors.grey.shade200,
         body: SingleChildScrollView(
@@ -62,12 +65,14 @@ class bookingState extends State<bookingpage> {
                     children: [
                       TextField(
                         controller: nameController,
+                        keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                           icon: Icon(Icons.person),
                           hintText: 'Enter Full Name',
                           labelText: 'Patient Name',
                           //border: OutlineInputBorder(),
                         ),
+                        
                       ),
                       SizedBox(
                         height: 15.h,
@@ -75,7 +80,8 @@ class bookingState extends State<bookingpage> {
                       TextField(
                         controller:
                             descController, //editing controller of this TextField
-                        decoration: const InputDecoration(
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
                           icon: Icon(Icons.description), //icon of text field
                           labelText: "Enter Description",
                           hintText: "Enter Description", //label text of field
@@ -87,7 +93,7 @@ class bookingState extends State<bookingpage> {
                       TextField(
                         controller:
                             dateController, //editing controller of this TextField
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                             icon:
                                 Icon(Icons.calendar_today), //icon of text field
                             labelText: "Enter Date" //label text of field
@@ -166,33 +172,37 @@ class bookingState extends State<bookingpage> {
                 padding: EdgeInsets.only(top: 20.h, bottom: 10.h),
                 child: InkWell(
                   onTap: () async {
+                    // ignore: unnecessary_null_comparison
                     if (nameController.text != null &&
                         descController.text != null &&
                         dateController.text != null &&
                         timeController.text != null) {
                       Get.snackbar("Oncogems", "Data is processing");
-                      print("Application Id: $id");
+                      // print("Application Id: $id");
                       setState(() {
                         loading = true;
                       });
 
-                      Map<String, double> data = {
-                        "Patient_name": double.parse(nameController.text),
-                        "Description": double.parse(descController.text),
-                        "date": double.parse(dateController.text),
-                        "time": double.parse(timeController.text),
-                      };
-                      if (submitChange == 'Submit') {
-                        firestore.doc(id).set({
-                          "id": id,
+                      // Map<String, double> data = {
+                      //   "Patient_name": double.parse(nameController.text),
+                      //   "Description": double.parse(descController.text),
+                      //   "date": double.parse(dateController.text),
+                      //   "time": double.parse(timeController.text),
+                      // };
+                      if (submitChange == "Submit") {
+                        if(id.isEmpty){
+                          firestore.doc(phone_id).set({
+                          "id": phone_id,
                           "Patient_name": nameController.text,
                           "Description": descController.text,
                           "date": dateController.text,
                           "time": timeController.text,
-                        }).then((value) {
+                        }).then((_) {
                           setState(() {
                             loading = false;
-                            //submitChange = 'Update';
+                            submitChange = 'Update';
+                            StorageService()
+                                .setString('Buttondata', submitChange);
                           });
                           Navigator.push(
                               context,
@@ -204,10 +214,91 @@ class bookingState extends State<bookingpage> {
                           });
                           Utils().toastMessage(error.toString(), false);
                         });
+                        }else if(phone_id.isEmpty){
+                          firestore.doc(id).set({
+                          "id": id,
+                          "Patient_name": nameController.text,
+                          "Description": descController.text,
+                          "date": dateController.text,
+                          "time": timeController.text,
+                        }).then((_) {
+                          setState(() {
+                            loading = false;
+                            submitChange = 'Update';
+                            StorageService()
+                                .setString('Buttondata', submitChange).then((_){
+                                  Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => confirmationpage()));
+                                }).onError((error, stackTrace){
+                                  Utils().toastMessage(error.toString(), false);
+                                });
+                          });                        
+                        }).onError((error, stackTrace) {
+                          setState(() {
+                            loading = false;
+                          });
+                          Utils().toastMessage(error.toString(), false);
+                        });
+                        }
+                        
                       }
+                    else if (submitChange == 'Update') {
+                      if(id.isEmpty){
+                        firestore.doc(phone_id).update({
+                        "id": phone_id,
+                        "Patient_name": nameController.text,
+                        "Description": descController.text,
+                        "date": dateController.text,
+                        "time": timeController.text,
+                      }).then((_) {
+                        setState(() {
+                          loading = false;
+                          // submitChange = 'Update';
+                          // StorageService()
+                          //     .setString('Buttondata', submitChange);
+                        });
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => confirmationpage()));
+                      }).onError((error, stackTrace) {
+                        setState(() {
+                          loading = false;
+                        });
+                        Utils().toastMessage(error.toString(), false);
+                      });
+                      }else if(phone_id.isEmpty){
+                        firestore.doc(id).update({
+                        "id": id,
+                        "Patient_name": nameController.text,
+                        "Description": descController.text,
+                        "date": dateController.text,
+                        "time": timeController.text,
+                      }).then((_) {
+                        setState(() {
+                          loading = false;
+                          // submitChange = 'Update';
+                          // StorageService()
+                          //     .setString('Buttondata', submitChange);
+                        });
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => confirmationpage()));
+                      }).onError((error, stackTrace) {
+                        setState(() {
+                          loading = false;
+                        });
+                        Utils().toastMessage(error.toString(), false);
+                      });
+                      }
+                      
                     } else {
                       Utils().toastMessage("Please enter Data", false);
                     }
+                  }
                   },
                   child: Container(
                     height: 50,

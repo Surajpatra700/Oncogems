@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_import, prefer_typing_uninitialized_variables
 
 import 'package:achiever/screens/homeScreen.dart';
+import 'package:achiever/services/storage_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -116,8 +117,8 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                         //obscuringCharacter: "*",
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  width: 2, color: Colors.green)),
+                              borderSide:
+                                  BorderSide(width: 2, color: Colors.green)),
                         ),
                         style: Theme.of(context).textTheme.titleLarge,
                         textAlign: TextAlign.center,
@@ -141,8 +142,8 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                         obscureText: true,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  width: 2, color: Colors.green)),
+                              borderSide:
+                                  BorderSide(width: 2, color: Colors.green)),
                         ),
                         style: Theme.of(context).textTheme.titleLarge,
                         textAlign: TextAlign.center,
@@ -166,8 +167,8 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                         obscureText: true,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  width: 2, color: Colors.green)),
+                              borderSide:
+                                  BorderSide(width: 2, color: Colors.green)),
                         ),
                         style: Theme.of(context).textTheme.titleLarge,
                         textAlign: TextAlign.center,
@@ -191,8 +192,8 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                         obscureText: true,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  width: 2, color: Colors.green)),
+                              borderSide:
+                                  BorderSide(width: 2, color: Colors.green)),
                         ),
                         style: Theme.of(context).textTheme.titleLarge,
                         textAlign: TextAlign.center,
@@ -216,8 +217,8 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                         obscureText: true,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  width: 2, color: Colors.green)),
+                              borderSide:
+                                  BorderSide(width: 2, color: Colors.green)),
                         ),
                         style: Theme.of(context).textTheme.titleLarge,
                         textAlign: TextAlign.center,
@@ -241,8 +242,8 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                         obscureText: true,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  width: 2, color: Colors.green)),
+                              borderSide:
+                                  BorderSide(width: 2, color: Colors.green)),
                         ),
                         style: Theme.of(context).textTheme.titleLarge,
                         textAlign: TextAlign.center,
@@ -277,6 +278,8 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
 
                     await auth.signInWithCredential(credential).then((value) {
                       Get.snackbar("Achiever", "Successfully LoggedIn");
+                      StorageService()
+                          .setString("user_phone_id", value.user!.uid);
                       Navigator.push(
                           context,
                           MaterialPageRoute(
