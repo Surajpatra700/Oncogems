@@ -641,13 +641,13 @@ packages:
     source: hosted
     version: "0.2.1"
   intl:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: intl
-      sha256: "3bc132a9dbce73a7e4a21a17d06e1878839ffbf975568bc875c60537824b0c4d"
+      sha256: "910f85bce16fb5c6f614e117efa303e85a1731bb0081edf3604a2ae6e9a3cc91"
       url: "https://pub.dev"
     source: hosted
-    version: "0.18.1"
+    version: "0.17.0"
   js:
     dependency: transitive
     description:
@@ -1021,6 +1021,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.2"
+  time_slot:
+    dependency: "direct main"
+    description:
+      name: time_slot
+      sha256: "20c92c96853f40e4a3eeb417513493fe2b7b3e588cdfd0238ea023f8988cb094"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2"
   timezone:
     dependency: transitive
     description:

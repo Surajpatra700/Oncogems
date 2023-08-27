@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../services/toast.dart';
+import 'bookingdoctorscreen2.dart';
+import 'bookingdoctorscreen3.dart';
 
 class BookingScreen extends StatefulWidget {
   const BookingScreen({super.key});
@@ -104,6 +106,7 @@ class _BookingScreenState extends State<BookingScreen> {
                           child: ListView.builder(
                               itemCount: snapshot.data?.docs.length,
                               itemBuilder: (BuildContext context, int index) {
+                                DocumentSnapshot doctor = snapshot.data?.docs[index] as DocumentSnapshot<Object?>;
                                 late String domain =
                                     snapshot.data!.docs[index]['proffession'].toString();
                                 if (searchController.text.isEmpty) {
@@ -120,19 +123,14 @@ class _BookingScreenState extends State<BookingScreen> {
                                         child: Card(
                                           elevation: 2.5,
                                           child: ListTile(
-                                            onTap: () async {
-                                              final Uri url = Uri(
-                                                scheme: "tel",
-                                                path: snapshot.data?.docs[index]
-                                                    ['contactnumber'],
-                                              );
-                                              if (await canLaunchUrl(url)) {
-                                                await launchUrl(url);
-                                              } else {
-                                                Utils(check: false).toastMessage(
-                                                    "Sorry can't launch this url",
-                                                    true);
-                                              }
+                                            onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>bookingpage2
+                                                        (
+                                                        doctor: doctor["name"]
+                                                      )));
                                             },
                                             tileColor: Colors.white,
                                             leading: Container(
