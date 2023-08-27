@@ -3,6 +3,7 @@
 import 'package:achiever/screens/achievement.dart';
 import 'package:achiever/screens/homePage.dart';
 import 'package:achiever/screens/profile.dart';
+import 'package:achiever/services/notifications/notificationclass.dart';
 import 'package:achiever/services/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -59,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
       actions: [
         IconButton(
             onPressed: () {
-              
+              Get.to(NotificationScreen());
             },
             icon: Icon(
               Icons.menu,
@@ -95,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
               style:
                   ElevatedButton.styleFrom(backgroundColor: Color(0xff50a387)),
               onPressed: () {
-                authenticatedUser? Get.back() : _authenticate();
+                authenticatedUser ? Get.back() : _authenticate();
               },
               child: Text("Ok")),
         );

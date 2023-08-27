@@ -5,6 +5,7 @@ import 'package:achiever/screens/measurements/bloodPressure.dart';
 import 'package:achiever/screens/measurements/pulserate.dart';
 import 'package:achiever/screens/measurements/sugarlevel.dart';
 import 'package:achiever/screens/measurements/wbcCount.dart';
+import 'package:achiever/services/notifications/notificationclass.dart';
 import 'package:achiever/services/notifications/notifications.dart';
 import 'package:achiever/services/oralCancer_prediction/oralPrediction.dart';
 import 'package:flutter/material.dart';
@@ -87,7 +88,8 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       IconButton(
                           onPressed: () {
-                            NotificationService();
+                            
+                            //NotificationService();
                           },
                           icon: Icon(
                             Icons.notifications,
